@@ -1,17 +1,18 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include<string.h>
-#include <ctype.h>
-union data
+#include <string.h>
+struct data
 {
     int num;
     char operator;
+    int flag;
 };
 struct STACK
 {
     int i;         //用于判断是字符还是数字还是空栈
     int flagOfTop; //用于计算栈的个数
-    union data dataInStack[sizeof(int)*1000];
+    struct data dataInStack[sizeof(int) * 1000];
 };
 
 enum SIGN
@@ -23,20 +24,24 @@ enum SIGN
 typedef struct STACK *STACK;
 int isEmpty(STACK);
 void makeEmpty(STACK);
-void push(STACK, union data);
-union data top(STACK);
-void pop(STACK, union data);
-union data topAndPop(STACK);
+void push(STACK, struct data);
+struct data top(STACK);
+void pop(STACK);
+struct data topAndPop(STACK);
 STACK createStack(STACK);
-
+struct data makeNode(int a, char b); //若为数字，则b默认为@
 int main()
 {
-
+    STACK sbwhx=malloc(sizeof(STACK));
+    sbwhx = createStack(sbwhx);
+    struct data wofule = makeNode(3, '@');
+    push(sbwhx, wofule);
+    getchar();
     return 0;
 }
 int isEmpty(STACK A)
 {
-    if (A->flagOfTop==0)
+    if (A->flagOfTop == 0)
     {
         return 1;
     }
@@ -46,18 +51,21 @@ void makeEmpty(STACK A)
     memset(A->dataInStack, 0, sizeof(int) * 1000);
     A->flagOfTop = 0;
 }
-void push(STACK A, union data i)
+void push(STACK A, struct data i)
 {
-    A->flagOfTop+=1;
-    if (i.operator>='A'&&i.operator<='Z')
+    if (i.flag == CHAR)
     {
-        A->dataInStack[A->flagOfTop].operator = i.operator;
-    }else
-    {
-        A->dataInStack[A->flagOfTop].num = i.num;    
+        A->dataInStack[A->flagOfTop].operator= i.operator;
+        A->dataInStack[A->flagOfTop].flag= i.flag;
     }
+    else
+    {
+        A->dataInStack[A->flagOfTop].flag = i.flag;
+        A->dataInStack[A->flagOfTop].num = i.num;
+    }
+    A->flagOfTop += 1;
 }
-union data top(STACK A)
+struct data top(STACK A)
 {
     return A->dataInStack[A->flagOfTop];
 }
@@ -65,13 +73,30 @@ void pop(STACK A)
 {
     A->flagOfTop--;
 }
-union data topAndPop(STACK  A)
+struct data topAndPop(STACK A)
 {
-    union data temp=top(A);
+    struct data temp = top(A);
     pop(A);
     return temp;
 }
 STACK createStack(STACK A)
 {
-    A[]
+    printf("%d", A->flagOfTop);
+    A->flagOfTop = 0;
+    return A;
+}
+struct data makeNode(int a, char b)
+{
+    struct data temp;
+    if (b == '@')
+    {
+        temp.flag = NUMBER;
+        temp.num = a;
+    }
+    else
+    {
+        temp.flag = CHAR;
+        temp.operator= b;
+    }
+    return temp;
 }
