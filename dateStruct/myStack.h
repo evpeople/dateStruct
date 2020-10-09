@@ -27,6 +27,5 @@ void push(STACK, struct data);
 struct data top(STACK);
 void pop(STACK);
 struct data topAndPop(STACK);
-STACK createStack(STACK&);
+STACK createStack(STACK);
 struct data makeNode(double a, char b); //若为数字，则b默认为@
-void  printStack(STACK);
