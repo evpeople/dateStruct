@@ -1,6 +1,23 @@
 #include "myStack.h"
+/*
+考虑当作函数实现
+if (temp.flag==Ope)
+                    {
+                        double a = topAndPop(AB).num;
+                        double b = topAndPop(AB).num;
+                        nodeOfStack ans=makeNode(mathOfOpr(a,b,temp.flag),'@');
+                        push(AB, ans);
+                    }else
+                    {
+                        double a = topAndPop(AB).num;
+                        nodeOfStack ans = makeNode(mathOfFun(a, temp.flag),'@');
+                        push(AB, ans);
+                    }*/
 
-int isLower(nodeOfStack A, nodeOfStack B);
+int isLower(nodeOfStack A, nodeOfStack B);//有问题，没写运算先后顺序的判断，
+double mathOfOpr(double, double, char);
+double mathOfFun(double, char);
+//这两个还没有实现，留给梁家瑞好了
 void printNode(nodeOfStack temp);
 char opr[5] = {'+', '-', '*', '/', '^'};
 char bra[6] = {'[', ']', '{', '}', '(', ')'};
@@ -9,12 +26,14 @@ int main()
 {
     nodeOfStack A;
     STACK BA = createStack(BA);
+    STACK AB = createStack(AB);
     nodeOfStack temp;
     A = makeNode(12.0, '@');
     switch (A.flag)
     {
     case Num:
-        printf("%lf", A.num);
+        push(AB, A);
+        //printf("%lf", A.num);
         break;
     case Bra:
         if (A.ch == '(')
@@ -28,8 +47,22 @@ int main()
             {
                 temp = top(BA);
                 if (temp.flag != Bra)
-                {
-                    printNode(temp);
+                {   
+                    if (temp.flag==Ope)
+                    {
+                        double a = topAndPop(AB).num;
+                        double b = topAndPop(AB).num;
+                        nodeOfStack ans=makeNode(mathOfOpr(a,b,temp.flag),'@');
+                        push(AB, ans);
+                    }else
+                    {
+                        double a = topAndPop(AB).num;
+                        nodeOfStack ans = makeNode(mathOfFun(a, temp.flag),'@');
+                        push(AB, ans);
+                    }
+                    
+                    
+                    //printNode(temp);
                 }
                 else
                 {
@@ -40,7 +73,7 @@ int main()
         }
     case Ope:
     case Fun: //A是新建的节点
-        if (isLower(top(BA), A) || top(BA).flag == Bra)
+        if (isLower(top(BA), A) || top(BA).flag == Bra||isEmpty(BA))
         {
             push(BA, A);
         }
@@ -49,7 +82,21 @@ int main()
             temp = topAndPop(BA);
             while (!isLower(temp, A))
             {
-                printNode(temp);
+                //通过函数实现
+                if (temp.flag == Ope)
+                {
+                    double a = topAndPop(AB).num;
+                    double b = topAndPop(AB).num;
+                    nodeOfStack ans = makeNode(mathOfOpr(a, b, temp.flag), '@');
+                    push(AB, ans);
+                }
+                else
+                {
+                    double a = topAndPop(AB).num;
+                    nodeOfStack ans = makeNode(mathOfFun(a, temp.flag), '@');
+                    push(AB, ans);
+                }
+                //printNode(temp);
                 temp = topAndPop(BA);
             }
             push(BA, A);
