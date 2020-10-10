@@ -1,3 +1,5 @@
+#include "reverse.h"
+#include "myAtof.h"
 #include "myStack.h"
 int isLower(nodeOfStack A, nodeOfStack B); //有问题，没写运算先后顺序的判断，
 //这两个还没有实现，留给梁家瑞好了
@@ -8,12 +10,16 @@ double reverse(nodeOfStack[]);
 void printNode(nodeOfStack temp);
 void dealWithBra(nodeOfStack, STACK, STACK,int*);
 void dealWithFun(nodeOfStack, STACK, STACK);
-char opr[5] = {'+', '-', '*', '/', '^'};
-char bra[6] = {'[', ']', '{', '}', '(', ')'};
-char func[26][6] = {"sin", "cos", "ln", "tan", "log", "!"};
 
+double mathOfOpr(double a, double b, char c)
+{
+    return 1;
+}
 
-
+double mathOfFun(double a, char b)
+{
+    return 1;
+}
 void specialPush(STACK AB, nodeOfStack temp)
 {
     if (temp.flag == Ope)
