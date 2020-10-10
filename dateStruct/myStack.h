@@ -4,25 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define NUMofFUN 6
-#define NUMofCstn 2
-#define NUMofOpe 5
-#define NUMofBra 6
-#define NUMofMax 26
 
-#define MaxInput 2000
 #define LENOFSTACK sizeof(struct data) * 2000
-#define LenOpr 5
-#define LenBra 6
-#define LenFunc 26
-#define LenFunc2 6
-#define LenUnit 6
-#define LenCstn 26
-extern char opr[LenOpr];
-extern char bra[LenBra];
-extern char func[LenFunc][LenFunc2];
-extern char cstn[LenCstn][LenUnit];
-extern double cstnDouble[LenCstn];
+
 enum flager
 {
 	Num = 0,

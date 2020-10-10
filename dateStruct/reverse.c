@@ -1,5 +1,5 @@
 #include "reverse.h"
-#include "myAtof.h"
+#include "getIn.h"
 #include "myStack.h"
 int isLower(nodeOfStack A, nodeOfStack B); //有问题，没写运算先后顺序的判断，
 //这两个还没有实现，留给梁家瑞好了
@@ -109,8 +109,8 @@ double reverse(nodeOfStack first[])
 {
     int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
-    STACK BA = createStack(BA); //内，暂存操作符
-    STACK AB = createStack(AB); //内，暂存操作数
+    STACK BA = createStack(); //内，暂存操作符
+    STACK AB = createStack(); //内，暂存操作数
     push(BA, makeNode(0, '+'));
     push(AB, makeNode(0, '@'));
     while (i)
