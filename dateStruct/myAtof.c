@@ -4,9 +4,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include<math.h>
+#include<corecrt_math_defines.h>
+char opr[LenOpr] = { '+','-','*','/','^' };
+char bra[LenBra] = { '(',')','[',']','{','}' };
+char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!" };
+char cstn[LenCstn][LenUnit] = { "pi","e" };
 
+double cstnDouble[LenCstn] = {M_PI,M_E };
 int  findNumLen(const char*);
-char findFunc(const char*);
+char findChar(const char*,enum flager *flag);
 struct data myAtof(const char*,int *len);
 
 int main() {
@@ -15,9 +22,9 @@ if (array == NULL)printf("wrong\n");
 else for (int i=0;;i++) {
 	if (array[i].flag == Not) { printf("shit\n"); break; }
 	if (array[i].flag != Num) {
-		printf("--%c--%d--	 ", array[i].ch, array[i].flag);
+		printf("%c	 ", array[i].ch, array[i].flag);
 	}
-	if (array[i].flag == Num)printf("--%lf-		", array[i].num);
+	if (array[i].flag == Num)printf("%lf		", array[i].num);
 	if (array[i].flag == Eql) {
 		printf("out by Eql."); break;
 	}
@@ -27,25 +34,18 @@ else for (int i=0;;i++) {
 
 char findChar(const char* str,enum flager *flag) {
 	for (int i = 0; i < NUMofMax; i++) {
-		if (i<NUMofFUN&&!strncmp(str, func[i], strlen(func[i]))) {
+		if (i < NUMofFUN && !strncmp(str, func[i], strlen(func[i]))) {
 			*flag = Fun; return 'A' + i;
 		}
 		else if (i<NUMofOpe&&*(str)==opr[i]) {
 			*flag = Ope; return opr[i];
 		}
 		else if (i<NUMofBra&& *(str) == bra[i]) {
-			*flag = Bra; return bra[i];
+			*flag = Bra; return bra[i%2];
 		}
 		else if (i<NUMofCstn&&!strncmp(str, cstn[i], strlen(cstn[i]))) {
 			*flag = Cstn; return 'a' + i;
 		}
-	}
-	return 0;
-}
-
-char findFunc(const char* str) {
-	for (int i = 0; i < NUMofFUN; i++) {
-		if(!strncmp(str,func[i],strlen(func[i])))return 'A'+i;
 	}
 	return 0;
 }
@@ -95,10 +95,10 @@ struct data myAtof(const char* str, int* len) {
 char x = 0;
 	if (!over&&(x=findChar(str,&aData.flag)) ){
 		switch(aData.flag){
-		case Bra: aData.ch = *str; (*len) += 1;break;
-		case Ope: aData.ch = *str; (*len) += 1; break;
+		case Bra: aData.ch = x; (*len) += 1;break;
+		case Ope: aData.ch = x; (*len) += 1; break;
 		case Cstn:x = x - 'a'; aData.num = cstnDouble[x]; aData.flag = Num; (*len) += strlen(cstn[x]); break;
-		case Fun: aData.ch = x; aData.ch = Fun;  (*len) += strlen(func[x] - 'A'); break;
+		case Fun: aData.ch = x; aData.flag = Fun;  (*len) += strlen(func[x - 'A']); break;
 		}
 		over=1;
 	}
@@ -118,7 +118,8 @@ char x = 0;
 
 struct data* getInArray() {
 	struct data* Array = (struct data*)malloc(LENOFSTACK);
-	int ArrayNum = 0;
+	Array[0] = makeNode(0, '(');
+	int ArrayNum = 1;
 	char inputStr[MaxInput];
 	int j = 0;
 	do {
@@ -126,7 +127,7 @@ struct data* getInArray() {
 		j++;
 	} while (inputStr[j-1] != '=');
 
-	for (int i = 0; i < MaxInput;) {
+	for (int i = 0; i < MaxInput-1;) {
 		
 		if (*(inputStr + i) == '\0') { 
 			printf("ERROR ! The Input is without a '=' .\n");
@@ -138,7 +139,7 @@ struct data* getInArray() {
 		now = myAtof(inputStr + i, &number);
 		if (!number) {
 			printf("Your input '%c' is invalid !\n", *(inputStr + i));  i++;
-			printf("Press 'y' to continue or the process will break.\n");
+			printf("Press 'y' to continue or the process will break.\n"); getchar();
 			if (getchar() != 'y') {
 				Array = NULL;
 				break;
@@ -147,10 +148,14 @@ struct data* getInArray() {
 		}
 		else if (now.flag != Num && now.flag != Not) {
 			//printf("Get a char %c %d\n", now.ch, number);
+			if (now.flag == Eql) {
+				Array[ArrayNum] = makeNode(0, ')');
+				ArrayNum++; 
+			}
 			Array[ArrayNum] = now;
 			ArrayNum++;
 			i += number;
-			if (now.flag == Eql) { break; }
+			if (now.flag == Eql)break;
 		}
 		else if (now.flag == Num) {
 			//printf("Get a double %lf %d\n", now.num, number);
@@ -159,6 +164,9 @@ struct data* getInArray() {
 			i += number;
 		}
 		else Array = NULL;
+	}
+	if (Array != NULL) {
+	
 	}
 	return Array;
 }

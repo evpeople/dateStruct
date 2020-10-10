@@ -1,10 +1,5 @@
 #include "myStack.h"
-char opr[LenOpr] = {'+','-','*','/','^'};
-char bra[LenBra] = { '[',']','(',')','{','}' };
-char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!"};
-char cstn[LenCstn][LenUnit] = { "pi","e" };
 
-double cstnDouble[LenCstn] = {  12,99};
 int isEmpty(STACK A)
 {
     if (A->flagOfTop == 0)
