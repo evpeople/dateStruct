@@ -15,8 +15,12 @@ double cstnDouble[LenCstn] = {M_PI,M_E };
 int  findNumLen(const char*);
 char findChar(const char*,enum flager *flag);
 struct data myAtof(const char*,int *len);
-
+int TestInput();
 int main() {
+	TestInput();
+	return 0;
+}
+int TestInput() {
 struct data* array=getInArray();
 if (array == NULL)printf("wrong\n");
 else for (int i=0;;i++) {
