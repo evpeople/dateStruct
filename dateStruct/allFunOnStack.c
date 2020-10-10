@@ -1,4 +1,10 @@
 #include "myStack.h"
+char opr[LenOpr] = {'+','-','*','/','^'};
+char bra[LenBra] = { '[',']','(',')','{','}' };
+char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!"};
+char cstn[LenCstn][LenUnit] = { "pi","e" };
+
+double cstnDouble[LenCstn] = {  12,99};
 int isEmpty(STACK A)
 {
     if (A->flagOfTop == 0)
@@ -39,9 +45,9 @@ struct data topAndPop(STACK A)
     pop(A);
     return temp;
 }
-STACK createStack(STACK A)
+STACK createStack()
 {
-    A = (STACK)malloc(LENOFSTACK);
+    STACK A = (STACK)malloc(LENOFSTACK);
     A->flagOfTop = 0;
     return A;
 }
@@ -76,4 +82,9 @@ struct data makeNode(double a, char b)
         temp.ch = b;
     }
     return temp;
+}
+void printStack(STACK stack) {
+    for (int i = 0; i < stack->flagOfTop; i++) {
+        printf("%.3lf     ", stack->dataInStack[i].num);
+    }
 }
