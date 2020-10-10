@@ -44,7 +44,7 @@ struct data topAndPop(STACK A)
 STACK createStack()
 {
     STACK A = (STACK)malloc(LENOFSTACK);
-    A->flagOfTop = 0;
+    A->flagOfTop = 1;
     return A;
 }
 struct data makeNode(double a, char b)
@@ -79,8 +79,10 @@ struct data makeNode(double a, char b)
     }
     return temp;
 }
-void printStack(STACK stack) {
-    for (int i = 0; i < stack->flagOfTop; i++) {
+void printStack(STACK stack)
+{
+    for (int i = 0; i < stack->flagOfTop; i++)
+    {
         printf("%.3lf     ", stack->dataInStack[i].num);
     }
 }

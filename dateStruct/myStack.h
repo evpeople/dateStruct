@@ -1,5 +1,5 @@
-#define  _CRT_SECURE_NO_WARNINGS
-#ifndef BASE 
+#define _CRT_SECURE_NO_WARNINGS
+#ifndef BASE
 #define BASE
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +31,6 @@ struct STACKER
 	struct data dataInStack[LENOFSTACK];
 };
 
-
 typedef struct STACKER *STACK;
 typedef struct data nodeOfStack;
 int isEmpty(STACK);
@@ -43,5 +42,5 @@ struct data topAndPop(STACK);
 STACK createStack();
 struct data makeNode(double a, char b); //若为数字，则b默认为@
 void printStack(STACK);
-struct data * getInArray();
+struct data *getInArray();
 #endif

@@ -8,12 +8,12 @@ double mathOfFun(double, char);
 void specialPush(STACK, nodeOfStack);
 double reverse(nodeOfStack[]);
 void printNode(nodeOfStack temp);
-void dealWithBra(nodeOfStack, STACK, STACK,int*);
+void dealWithBra(nodeOfStack, STACK, STACK, int *);
 void dealWithFun(nodeOfStack, STACK, STACK);
 
 double mathOfOpr(double a, double b, char c)
 {
-    return 1;
+    return 2;
 }
 
 double mathOfFun(double a, char b)
@@ -51,7 +51,7 @@ int isLower(nodeOfStack A, nodeOfStack B)
 {
     return A.ch <= B.ch;
 }
-void dealWithBra(nodeOfStack A, STACK BA, STACK AB,int* i)
+void dealWithBra(nodeOfStack A, STACK BA, STACK AB, int *i)
 {
     if (A.ch == '(')
     {
@@ -61,8 +61,8 @@ void dealWithBra(nodeOfStack A, STACK BA, STACK AB,int* i)
     else
     {
         (*i)--;
-        nodeOfStack temp = topAndPop(BA);
-        while (temp.ch != ')')
+        nodeOfStack temp = top(BA);
+        while (temp.ch != '(')//TODO:
         {
             temp = top(BA);
             if (temp.flag != Bra)
@@ -97,7 +97,7 @@ void dealWithFun(nodeOfStack A, STACK BA, STACK AB)
         //printNode(temp);
     }
 }
-void dealWithDefault(STACK AB,STACK BA)
+void dealWithDefault(STACK AB, STACK BA)
 {
     while (!isEmpty(BA))
     {
@@ -107,19 +107,21 @@ void dealWithDefault(STACK AB,STACK BA)
 }
 double reverse(nodeOfStack first[])
 {
-    int numOfNode = sizeof(first) / sizeof(nodeOfStack);
+    //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
+    int tWhx = 0;
     STACK BA = createStack(); //内，暂存操作符
     STACK AB = createStack(); //内，暂存操作数
     push(BA, makeNode(0, '+'));
     push(AB, makeNode(0, '@'));
-    while (i)
+    do
     {
-        nodeOfStack A = first[i];
+        nodeOfStack A = first[tWhx];
+        tWhx++;
         switch (A.flag)
         {
         case Num:
-            push(AB, A);//printf("%lf", A.num);
+            push(AB, A); //printf("%lf", A.num);
             break;
         case Bra:
             dealWithBra(A, BA, AB, &i);
@@ -132,8 +134,6 @@ double reverse(nodeOfStack first[])
             dealWithDefault(AB, BA);
             break;
         }
-        printf("编译成功");
-        getchar();
-    }
+    } while (i);
     return topAndPop(AB).num;
 }

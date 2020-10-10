@@ -4,11 +4,11 @@
 
 int main()
 {
-    printf("wsdsaad");
+    //printf("wsdsaad");
     nodeOfStack *A = getInArray();
-    printf("%c", A[1].ch);
+    //printf("%c", A[1].ch);
     //system("pause");
-    printf("wsdsaad");
+    //printf("wsdsaad");
     double answer = reverse(A);
     printf("%lf", &answer);
     printf("whxNB ljrNB wzNB");

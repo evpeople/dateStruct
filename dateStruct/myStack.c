@@ -2,7 +2,7 @@
 #include "getIn.h"
 int isEmpty(STACK A)
 {
-    if (A->flagOfTop == 0)
+    if (A->flagOfTop == 1)
     {
         return 1;
     }
@@ -10,7 +10,7 @@ int isEmpty(STACK A)
 void makeEmpty(STACK A)
 {
     memset(A->dataInStack, 0, sizeof(int) * 1000);
-    A->flagOfTop = 0;
+    A->flagOfTop = 1;
 }
 void push(STACK A, struct data i)
 {
@@ -28,7 +28,7 @@ void push(STACK A, struct data i)
 }
 struct data top(STACK A)
 {
-    return A->dataInStack[A->flagOfTop];
+    return A->dataInStack[A->flagOfTop - 1];
 }
 void pop(STACK A)
 {
@@ -43,7 +43,7 @@ struct data topAndPop(STACK A)
 STACK createStack()
 {
     STACK A = (STACK)malloc(LENOFSTACK);
-    A->flagOfTop = 0;
+    A->flagOfTop = 1;
     return A;
 }
 struct data makeNode(double a, char b)
@@ -75,13 +75,15 @@ struct data makeNode(double a, char b)
                 temp.flag = Ope;
         }
         if (temp.flag == Not)
-            printf("Error!--The \"makeNode by %c \" is Not a avaliable char!\n",b);
+            printf("Error!--The \"makeNode by %c \" is Not a avaliable char!\n", b);
         temp.ch = b;
     }
     return temp;
 }
-void printStack(STACK stack) {
-    for (int i = 0; i < stack->flagOfTop; i++) {
+void printStack(STACK stack)
+{
+    for (int i = 0; i < stack->flagOfTop; i++)
+    {
         printf("%.3lf     ", stack->dataInStack[i].num);
     }
 }
