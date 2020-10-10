@@ -11,9 +11,9 @@ void dealWithFun(nodeOfStack, STACK, STACK);
 char opr[5] = {'+', '-', '*', '/', '^'};
 char bra[6] = {'[', ']', '{', '}', '(', ')'};
 char func[26][6] = {"sin", "cos", "ln", "tan", "log", "!"};
-int main()
-{
-}
+
+
+
 void specialPush(STACK AB, nodeOfStack temp)
 {
     if (temp.flag == Ope)
