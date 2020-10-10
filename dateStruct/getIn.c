@@ -12,11 +12,11 @@ int  findNumLen(const char*);
 char findChar(const char*,enum flager *flag);
 struct data myAtof(const char*,int *len);
 int TestInput();
-
-int main() {
-	TestInput();
-	return 0;
-}
+//
+//int main() {
+//	TestInput();
+//	return 0;
+//}
 
 int TestInput() {
 struct data* array=getInArray();
