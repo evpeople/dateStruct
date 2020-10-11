@@ -13,63 +13,62 @@ void dealWithFun(nodeOfStack, STACK, STACK);
 
 double mathOfOpr(double a, double b, char c)
 {
-    double result;//保存单目运算结果
-    if(c=='+')
+    double result; //保存单目运算结果
+    if (c == '+')
     {
-        result=a+b;
+        result = a + b;
     }
-    else if(c=='-')
+    else if (c == '-')
     {
-        result=a-b;
+        result = a - b;
     }
-    else if(c=='*')
+    else if (c == '*')
     {
-        result=a*b;
+        result = a * b;
     }
-    else if(c=='/')
+    else if (c == '/')
     {
-        result=a/b;
+        result = a / b;
     }
-    else if(c=='^')
+    else if (c == '^')
     {
-        result=pow(a,b);
+        result = pow(a, b);
     }
     return result;
-
 }
 
 double mathOfFun(double a, char b)
 {
-    double result;//保存函数运算结果
-    int tempjc;//运算阶乘使用的int类型数
-    if(b=='A')
+    double result; //保存函数运算结果
+    int tempjc;    //运算阶乘使用的int类型数
+    if (b == 'A')
     {
-        result=sin(a);
+        result = sin(a);
     }
-    else if(b=='B')
+    else if (b == 'B')
     {
-        result=log(a);
+        result = log(a);
     }
-    else if(b=='C')
+    else if (b == 'C')
     {
-        result=tan(a);
+        result = tan(a);
     }
-    else if(b=='D')
+    else if (b == 'D')
     {
-        result=cos(a);
+        result = cos(a);
     }
-    else if(b=='E')
+    else if (b == 'E')
     {
-        result=log10(a);
+        result = log10(a);
     }
-    else if(b=='F')
+    else if (b == 'F')
     {
-        tempjc=(int)a;
-        result=1;
-        while(tempjc>1)
+        tempjc = (int)a;
+        result = 1;
+        while (tempjc > 1)
         {
-            result=result*tempjc;
-            tempic--;
+            result = result * tempjc;
+            tempjc--;
         }
     }
     return result;
@@ -80,13 +79,13 @@ void specialPush(STACK opdStack, nodeOfStack temp)
     {
         double a = topAndPop(opdStack).num;
         double b = topAndPop(opdStack).num;
-        nodeOfStack ans = makeNode(mathOfOpr(a, b, temp.flag), '@');
+        nodeOfStack ans = makeNode(mathOfOpr(a, b, temp.ch), '@');
         push(opdStack, ans);
     }
     else
     {
         double a = topAndPop(opdStack).num;
-        nodeOfStack ans = makeNode(mathOfFun(a, temp.flag), '@');
+        nodeOfStack ans = makeNode(mathOfFun(a, temp.ch), '@');
         push(opdStack, ans);
     }
 }
@@ -116,7 +115,7 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
     {
         (*i)--;
         nodeOfStack temp = top(oprStack);
-        while (temp.ch != '(')//TODO:
+        while (temp.ch != '(') //TODO:
         {
             temp = top(oprStack);
             if (temp.flag != Bra)
@@ -129,6 +128,7 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
                 pop(oprStack);
             }
             pop(oprStack);
+            temp = top(oprStack);
         }
     }
 }
