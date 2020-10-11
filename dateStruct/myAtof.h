@@ -5,6 +5,6 @@
 #define M_E 2.71828
 
 int findNumLen(const char *);
-char findChar(const char *, int *flag);
-struct data myAtof(const char *str, int *len);
+char findChar(const char *, int *);
+struct data myAtof(const char *, int *);
 int TestInput();

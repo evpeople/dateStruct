@@ -74,20 +74,20 @@ double mathOfFun(double a, char b)
     }
     return result;
 }
-void specialPush(STACK AB, nodeOfStack temp)
+void specialPush(STACK opdStack, nodeOfStack temp)
 {
     if (temp.flag == Ope)
     {
-        double a = topAndPop(AB).num;
-        double b = topAndPop(AB).num;
+        double a = topAndPop(opdStack).num;
+        double b = topAndPop(opdStack).num;
         nodeOfStack ans = makeNode(mathOfOpr(a, b, temp.flag), '@');
-        push(AB, ans);
+        push(opdStack, ans);
     }
     else
     {
-        double a = topAndPop(AB).num;
+        double a = topAndPop(opdStack).num;
         nodeOfStack ans = makeNode(mathOfFun(a, temp.flag), '@');
-        push(AB, ans);
+        push(opdStack, ans);
     }
 }
 void printNode(nodeOfStack temp)
@@ -105,58 +105,58 @@ int isLower(nodeOfStack A, nodeOfStack B)
 {
     return A.ch <= B.ch;
 }
-void dealWithBra(nodeOfStack A, STACK BA, STACK AB, int *i)
+void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 {
     if (A.ch == '(')
     {
         (*i)++;
-        push(BA, A);
+        push(oprStack, A);
     }
     else
     {
         (*i)--;
-        nodeOfStack temp = top(BA);
+        nodeOfStack temp = top(oprStack);
         while (temp.ch != '(')//TODO:
         {
-            temp = top(BA);
+            temp = top(oprStack);
             if (temp.flag != Bra)
             {
-                specialPush(AB, temp);
+                specialPush(opdStack, temp);
                 //printNode(temp);
             }
             else
             {
-                pop(BA);
+                pop(oprStack);
             }
-            pop(BA);
+            pop(oprStack);
         }
     }
 }
-void dealWithFun(nodeOfStack A, STACK BA, STACK AB)
+void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
 {
-    if (isLower(top(BA), A) || top(BA).flag == Bra || isEmpty(BA))
+    if (isLower(top(oprStack), A) || top(oprStack).flag == Bra || isEmpty(oprStack))
     {
-        push(BA, A);
+        push(oprStack, A);
     }
     else
     {
-        nodeOfStack temp = topAndPop(BA);
+        nodeOfStack temp = topAndPop(oprStack);
         while (!isLower(temp, A))
         {
             //通过函数实现
-            specialPush(AB, temp);
-            temp = topAndPop(BA);
+            specialPush(opdStack, temp);
+            temp = topAndPop(oprStack);
         }
-        push(BA, A);
+        push(oprStack, A);
         //printNode(temp);
     }
 }
-void dealWithDefault(STACK AB, STACK BA)
+void dealWithDefault(STACK opdStack, STACK oprStack)
 {
-    while (!isEmpty(BA))
+    while (!isEmpty(oprStack))
     {
-        nodeOfStack temp = topAndPop(BA);
-        specialPush(AB, temp);
+        nodeOfStack temp = topAndPop(oprStack);
+        specialPush(opdStack, temp);
     }
 }
 double reverse(nodeOfStack first[])
@@ -164,10 +164,10 @@ double reverse(nodeOfStack first[])
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
     int tWhx = 0;
-    STACK BA = createStack(); //内，暂存操作符
-    STACK AB = createStack(); //内，暂存操作数
-    push(BA, makeNode(0, '+'));
-    push(AB, makeNode(0, '@'));
+    STACK oprStack = createStack(); //内，暂存操作符(operatorStack操作符栈)
+    STACK opdStack = createStack(); //内，暂存操作数(operandStack操作数栈)
+    push(oprStack, makeNode(0, '+'));
+    push(opdStack, makeNode(0, '@'));
     do
     {
         nodeOfStack A = first[tWhx];
@@ -175,19 +175,19 @@ double reverse(nodeOfStack first[])
         switch (A.flag)
         {
         case Num:
-            push(AB, A); //printf("%lf", A.num);
+            push(opdStack, A); //printf("%lf", A.num);
             break;
         case Bra:
-            dealWithBra(A, BA, AB, &i);
+            dealWithBra(A, oprStack, opdStack, &i);
             break;
         case Ope:
         case Fun: //A是新建的节点
-            dealWithFun(A, BA, AB);
+            dealWithFun(A, oprStack, opdStack);
             break;
         default: //读入等号
-            dealWithDefault(AB, BA);
+            dealWithDefault(opdStack, oprStack);
             break;
         }
     } while (i);
-    return topAndPop(AB).num;
+    return topAndPop(opdStack).num;
 }
