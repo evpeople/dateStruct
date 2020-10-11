@@ -1,8 +1,8 @@
 #include "reverse.h"
 #include "getIn.h"
 #include "myStack.h"
+#include <math.h>
 int isLower(nodeOfStack A, nodeOfStack B); //有问题，没写运算先后顺序的判断，
-//这两个还没有实现，留给梁家瑞好了
 double mathOfOpr(double, double, char);
 double mathOfFun(double, char);
 void specialPush(STACK, nodeOfStack);
@@ -13,12 +13,66 @@ void dealWithFun(nodeOfStack, STACK, STACK);
 
 double mathOfOpr(double a, double b, char c)
 {
-    return 2;
+    double result;//保存单目运算结果
+    if(c=='+')
+    {
+        result=a+b;
+    }
+    else if(c=='-')
+    {
+        result=a-b;
+    }
+    else if(c=='*')
+    {
+        result=a*b;
+    }
+    else if(c=='/')
+    {
+        result=a/b;
+    }
+    else if(c=='^')
+    {
+        result=pow(a,b);
+    }
+    return result;
+
 }
 
 double mathOfFun(double a, char b)
 {
-    return 1;
+    double result;//保存函数运算结果
+    int tempjc;//运算阶乘使用的int类型数
+    if(b=='A')
+    {
+        result=sin(a);
+    }
+    else if(b=='B')
+    {
+        result=log(a);
+    }
+    else if(b=='C')
+    {
+        result=tan(a);
+    }
+    else if(b=='D')
+    {
+        result=cos(a);
+    }
+    else if(b=='E')
+    {
+        result=log10(a);
+    }
+    else if(b=='F')
+    {
+        tempjc=(int)a;
+        result=1;
+        while(tempjc>1)
+        {
+            result=result*tempjc;
+            tempic--;
+        }
+    }
+    return result;
 }
 void specialPush(STACK AB, nodeOfStack temp)
 {
