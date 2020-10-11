@@ -12,13 +12,13 @@ int main()
         //printf("%c", A[1].ch);
         //system("pause");
         //printf("wsdsaad");
-        double answer = reverse(A);
+        double answer = reverse(A,0);
         printf("%lf\n", answer);
         printf("whxNB ljrNB wzNB");
     }
     
     nodeOfStack *A = getInArray();
-    double answer = reverse(A);
+    double answer = reverse(A,0);
     printf("%lf\n", answer);
     printf("whxNB ljrNB wzNB");
     getchar();

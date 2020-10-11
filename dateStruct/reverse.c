@@ -6,7 +6,7 @@ int isLower(nodeOfStack A, nodeOfStack B); //有问题，没写运算先后顺�
 double mathOfOpr(double, double, char);
 double mathOfFun(double, char);
 void specialPush(STACK, nodeOfStack);
-double reverse(nodeOfStack[]);
+double reverse(nodeOfStack[],int);
 void printNode(nodeOfStack temp);
 void dealWithBra(nodeOfStack, STACK, STACK, int *);
 void dealWithFun(nodeOfStack, STACK, STACK);
@@ -159,19 +159,19 @@ void dealWithDefault(STACK opdStack, STACK oprStack)
         specialPush(opdStack, temp);
     }
 }
-double reverse(nodeOfStack first[])
+double reverse(nodeOfStack first[],int index)
 {
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
-    int tWhx = 0;
+    int index = 0;
     STACK oprStack = createStack(); //内，暂存操作符(operatorStack操作符栈)
     STACK opdStack = createStack(); //内，暂存操作数(operandStack操作数栈)
     push(oprStack, makeNode(0, '+'));
     push(opdStack, makeNode(0, '@'));
     do
     {
-        nodeOfStack A = first[tWhx];
-        tWhx++;
+        nodeOfStack A = first[index];
+        index++;
         switch (A.flag)
         {
         case Num:
@@ -181,9 +181,12 @@ double reverse(nodeOfStack first[])
             dealWithBra(A, oprStack, opdStack, &i);
             break;
         case Ope:
-        case Fun: //A是新建的节点
             dealWithFun(A, oprStack, opdStack);
             break;
+        case Fun: //A是新建的节点
+            double tempNum=reverse(first,index,'@');
+            nodeOfStack tempNode=makeNode(tempNum,'@');
+            dealWithFun(tempNode,oprStack,opdStack);
         default: //读入等号
             dealWithDefault(opdStack, oprStack);
             break;
