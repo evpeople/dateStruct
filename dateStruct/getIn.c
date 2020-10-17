@@ -22,7 +22,7 @@ int TestInput() {
 struct data* array=getInArray();
 if (array == NULL)printf("wrong\n");
 else for (int i=0;;i++) {
-	if (array[i].flag == Not) { printf("shit\n"); break; }
+	if (array[i].flag == Not) { printf("wrong\n"); break; }
 	if (array[i].flag != Num) {
 		printf("%c	 ", array[i].ch);
 	}
@@ -37,16 +37,16 @@ return 0;
 char findChar(const char* str,enum flager *flag) {
 	for (int i = 0; i < NUMofMax; i++) {
 		if (i < NUMofFUN && !strncmp(str, func[i], strlen(func[i]))) {
-			*flag = Fun; return 'A' + i;
+			*flag = Fun; return 'A' + i;//函数
 		}
 		else if (i<NUMofOpe&&*(str)==opr[i]) {
-			*flag = Ope; return opr[i];
+			*flag = Ope; return opr[i];//操作符
 		}
 		else if (i<NUMofBra&& *(str) == bra[i]) {
-			*flag = Bra; return bra[i%2];
+			*flag = Bra; return bra[i%2];//括号
 		}
 		else if (i<NUMofCstn&&!strncmp(str, cstn[i], strlen(cstn[i]))) {
-			*flag = Cstn; return 'a' + i;
+			*flag = Cstn; return 'a' + i;//常数
 		}
 	}
 	return 0;
@@ -80,22 +80,22 @@ int findNumLen(const char* str) {
 }
 
 struct data myAtof(const char* str, int* len) {
-	int over = 0;
-	*len = 0;
-	struct data aData;
+	int over = 0;//用以判断函数能否结束的标志
+	*len = 0;//存储占用字符数
+	struct data aData;//当前节点
 	aData.flag = Not;
 
-	while (*str == ' '||*str=='\n'||*str=='\t') { str++; (*len)++; }
+	while (*str == ' '||*str=='\n'||*str=='\t') { str++; (*len)++; }//跳过无效元素
 	if (*str == '\0')over = 1;
 
-	if (*str == '=') {
+	if (*str == '=') {//将当前元素设为等号
 		aData.flag = Eql;
 		aData.ch = '=';
 		(*len)++;
 		over = 1;
 	}
-char x = 0;
-	if (!over&&(x=findChar(str,&aData.flag)) ){
+	char x = 0;
+	if (!over&&(x=findChar(str,&aData.flag)) ){//若为字符类型，将当前元素设为字符
 		switch(aData.flag){
 		case Bra: aData.ch = x; (*len) += 1;break;
 		case Ope: aData.ch = x; (*len) += 1; break;
@@ -106,7 +106,7 @@ char x = 0;
 		over=1;
 	}
 
-	if (!over && findNumLen(str)) {
+	if (!over && findNumLen(str)) {//若为数字类型，将当前元素设为数字
 		
 		(*len) += findNumLen(str); 
 		aData.num = atof(str);
@@ -119,16 +119,16 @@ char x = 0;
 
 }
 
-struct data* getInArray() {
-	struct data* Array = (struct data*)malloc(LENOFSTACK);
-	Array[0] = makeNode(0, '(');
-	int ArrayNum = 1;
-	char inputStr[MaxInput];
-	int j = 0;
+struct data* getInArray() {//主要读取数据函数（为以上函数的集中整合）
+	struct data* Array = (struct data*)malloc(LENOFSTACK);//申请空间创建一个读取数据的数组
+	Array[0] = makeNode(0, '(');//前括号作为首结点，便于后期递归
+	int ArrayNum = 1;//数组Array长度
+	char inputStr[MaxInput];//输入的字符串
+	int j = 0;//读取用变量
 	do {
 		inputStr[j] = getchar(); 
 		j++;
-	} while (inputStr[j-1] != '=');
+	} while (inputStr[j-1] != '=');//遇到'='读取结束
 
 	for (int i = 0; i < MaxInput-1;) {
 		
@@ -137,9 +137,9 @@ struct data* getInArray() {
 			Array = NULL;
 			break; 
 		}
-		struct data now;
-		int number = 0;
-		now = myAtof(inputStr + i, &number);
+		struct data now;//创建一个新节点代表当前元素
+		int number = 0;//存储当前元素所占的字符数
+		now = myAtof(inputStr + i, &number);//顺序读入字符串元素
 		if (!number) {
 			printf("Your input '%c' is invalid !\n", *(inputStr + i));  i++;
 			printf("Press 'y' to continue or the process will break.\n"); getchar();

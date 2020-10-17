@@ -7,7 +7,7 @@ double mathOfOpr(double, double, char);
 double mathOfFun(double, char);
 void specialPush(STACK, nodeOfStack);
 double reverse(nodeOfStack[]);
-void printNode(nodeOfStack temp);
+//void printNode(nodeOfStack temp);
 void dealWithBra(nodeOfStack, STACK, STACK, int *);
 void dealWithFun(nodeOfStack, STACK, STACK);
 
@@ -87,17 +87,6 @@ void specialPush(STACK opdStack, nodeOfStack temp)
         double a = topAndPop(opdStack).num;
         nodeOfStack ans = makeNode(mathOfFun(a, temp.ch), '@');
         push(opdStack, ans);
-    }
-}
-void printNode(nodeOfStack temp)
-{
-    if (temp.flag == Num)
-    {
-        printf("%lf", temp.num);
-    }
-    else if (temp.flag == Ope || temp.flag == Fun)
-    {
-        printf("%c", temp.ch);
     }
 }
 int isLower(nodeOfStack A, nodeOfStack B)
