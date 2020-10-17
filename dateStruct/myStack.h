@@ -15,6 +15,7 @@ enum flager//枚举类型（增加可读性*）
 	Bra,
 	Cstn,
 	Eql,
+	Mod,
 	Not
 };
 struct data

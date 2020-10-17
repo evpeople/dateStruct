@@ -1,8 +1,12 @@
 #include"myStack.h"
 #include"getIn.h"
 #include"reverse.h"
+
+#include "print.h"
+
 nodeOfStack *changedString;
 int indexOfString;
+
 int main()
 {
 
@@ -20,9 +24,10 @@ int main()
     }
     
     nodeOfStack *A = getInArray();
-    double answer = reverse(A);
-    printf("%lf\n", answer);
-    printf("whxNB ljrNB wzNB");
+    if (A == NULL)printf("�����룺\n");
+    double theAnswer = reverse(A);
+    printAns(theAnswer);
+    printf("<<<<<====-------------------------====>>>>>");
     getchar();
     getchar();
     getchar();
