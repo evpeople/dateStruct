@@ -181,6 +181,11 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
             }
             pop(oprStack);
             temp = top(oprStack);
+            if (isEmpty(oprStack))
+            {
+                break;
+            }
+            
         }
     }
 }
@@ -246,7 +251,7 @@ double reverse(nodeOfStack first[])
             break;
         default: //读入等号
             dealWithDefault(opdStack, oprStack);
-            // i = 0;
+            return topAndPop(opdStack).num;
             break;
         }
     } while (i);

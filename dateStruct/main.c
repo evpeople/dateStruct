@@ -6,7 +6,8 @@
 
 nodeOfStack *changedString;
 int indexOfString;
-
+int numOfRecursion;
+int flagOfRecursion;
 int main()
 {
 
@@ -20,6 +21,8 @@ int main()
         double answer = reverse(changedString);
         printf("%lf\n", answer);
         indexOfString = 0;
+        numOfRecursion = 0;
+        flagOfRecursion = 0;
         printf("whxNB ljrNB wzNB");
     }
     

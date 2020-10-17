@@ -99,13 +99,8 @@ struct data myAtof(const char* str, int* len) {
 		(*len)++;
 		over = 1;
 	}
-<<<<<<< HEAD
 char x = 0;
 	if (!over&&((x=findChar(str,&aData.flag))||aData.flag!=Not) ){
-=======
-	char x = 0;
-	if (!over&&(x=findChar(str,&aData.flag)) ){//若为字符类型，将当前元素设为字符
->>>>>>> 1e05e5e8963511c69e42780f331ab94f4c415332
 		switch(aData.flag){
 		case Bra: aData.ch = x; (*len) += 1;break;
 		case Ope: aData.ch = x; (*len) += 1; break;
