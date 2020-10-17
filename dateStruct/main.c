@@ -2,7 +2,7 @@
 #include"getIn.h"
 #include"reverse.h"
 nodeOfStack *changedString;
-int twhx;
+int indexOfString;
 int main()
 {
 
@@ -15,7 +15,7 @@ int main()
         //printf("wsdsaad");
         double answer = reverse(changedString);
         printf("%lf\n", answer);
-        twhx = 0;
+        indexOfString = 0;
         printf("whxNB ljrNB wzNB");
     }
     

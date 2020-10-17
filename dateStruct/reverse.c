@@ -10,7 +10,7 @@ double reverse(nodeOfStack[]);
 //void printNode(nodeOfStack temp);
 void dealWithBra(nodeOfStack, STACK, STACK, int *);
 void dealWithFun(nodeOfStack, STACK, STACK);
-int tWhx = 0;
+int indexOfString = 0;
 int numOfRecursion = 0;
 int flagOfRecursion = 0;
 double mathOfOpr(double a, double b, char c)
@@ -91,17 +91,76 @@ void specialPush(STACK opdStack, nodeOfStack temp)
         push(opdStack, ans);
     }
 }
+
+int level(char n){
+    int level[256];
+    
+    for (int i = 0; i < 256;i++){
+        switch(i){
+            case '+' :case '-':
+                level[i] = 2;
+            case '*':case'/':
+                level[i] = 3;
+        }
+    }
+    return level[n];
+}
 int isLower(nodeOfStack A, nodeOfStack B)
 {
-    return A.ch <= B.ch;
+    int flag = 0;//1 xian B, 0 xian A
+    if  (A.flag == Ope && B.flag == Fun)
+        {
+            flag= 1;
+        }
+        else if (A.flag == Ope && B.flag == Ope)
+        {
+            if(level(B.flag)>level(A.flag))
+                flag = 1;
+        }else if (A.flag==Bra)
+        {
+            flag = 1;
+        }
+        
+        return flag;
 }
+// int isLower(nodeOfStack A, nodeOfStack B) //A 是栈顶元素 B是马上入栈的元素 A比B小，返回1
+// {
+//     if (A.flag == Fun && B.flag == Ope)
+//     {
+//         return 0;
+//     }
+//     else if (A.flag == Ope && B.flag == Fun)
+//     {
+//         return 1;
+//     }
+//     else if (A.flag == Ope && B.flag == Ope)
+//     {
+//         if (B.ch == '+' && B.ch == '-')
+//         {
+//             return 0;
+//         }
+//         else if (B.ch == '*' && B.ch == '/')
+//         {
+//             if (A.ch == '+' && A.ch == '-')
+//             {
+//                 return 1;
+//             }
+//             else
+//             {
+//                 return 0;
+//             }
+//         }
+//     }
+
+//     return A.ch <= B.ch;
+// }
 void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 {
     if (A.ch == '(')
     {
         (*i)++;
         numOfRecursion++;
-        push(opdStack, makeNode(reverse(changedString),'@'));
+        push(opdStack, makeNode(reverse(changedString), '@'));
         (*i)--;
     }
     else
@@ -156,24 +215,23 @@ double reverse(nodeOfStack first[])
 {
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
-    if (numOfRecursion!=0)
+    if (numOfRecursion != 0)
     {
         i = 1;
     }
-    
+
     STACK oprStack = createStack(); //内，暂存操作符(operatorStack操作符栈)
     STACK opdStack = createStack(); //内，暂存操作数(operandStack操作数栈)
-    if (numOfRecursion!=0)
+    if (numOfRecursion != 0)
     {
         push(oprStack, makeNode(0, '('));
     }
-    
-    
+
     push(opdStack, makeNode(0, '@'));
     do
     {
-        nodeOfStack A = first[tWhx];
-        tWhx++;
+        nodeOfStack A = first[indexOfString];
+        indexOfString++;
         switch (A.flag)
         {
         case Num:
@@ -188,6 +246,7 @@ double reverse(nodeOfStack first[])
             break;
         default: //读入等号
             dealWithDefault(opdStack, oprStack);
+            // i = 0;
             break;
         }
     } while (i);
