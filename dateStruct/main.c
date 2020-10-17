@@ -1,8 +1,13 @@
 #include"myStack.h"
 #include"getIn.h"
 #include"reverse.h"
+
+#include "print.h"
+
 nodeOfStack *changedString;
-int twhx;
+int indexOfString;
+int numOfRecursion;
+int flagOfRecursion;
 int main()
 {
 
@@ -15,14 +20,17 @@ int main()
         //printf("wsdsaad");
         double answer = reverse(changedString);
         printf("%lf\n", answer);
-        twhx = 0;
+        indexOfString = 0;
+        numOfRecursion = 0;
+        flagOfRecursion = 0;
         printf("whxNB ljrNB wzNB");
     }
     
     nodeOfStack *A = getInArray();
-    double answer = reverse(A);
-    printf("%lf\n", answer);
-    printf("whxNB ljrNB wzNB");
+    if (A == NULL)printf("�����룺\n");
+    double theAnswer = reverse(A);
+    printAns(theAnswer);
+    printf("<<<<<====-------------------------====>>>>>");
     getchar();
     getchar();
     getchar();

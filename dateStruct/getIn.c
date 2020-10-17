@@ -1,11 +1,12 @@
 #include"myStack.h"
 #include"getIn.h"
+#include"print.h"
 
-char opr[LenOpr] = { '+','-','*','/','^' };//操作符
+char opr[LenOpr] = { '+','-','*','/','^' };//操作符//自行扩展请按照优先级后大前小的方式排列，并定义在mathOfOpr即可，并且getIn.h中宏NumOf需要加1
 char bra[LenBra] = { '(',')','[',']','{','}' };//括号//保证前括号下标%2为0，后括号为1
-char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!" };//函数//可自行扩展，定义在mathOfFun即可，并且getin.hz中宏NumOfFunc2需要加1
-char cstn[LenCstn][LenUnit] = { "pi","e" };//常数//增加需要在cstnDouble[LenCstn]中定义，并且getin.hz中宏LenCstn需要加1
-
+char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log" };//函数//可自行扩展，定义在mathOfFun即可，并且getIn.h中宏NumOfFunc2需要加1
+char cstn[LenCstn][LenUnit] = { "pi","e" ,};//常数或模式//增加需要在cstnDouble[LenCstn]中定义，并且getin.hz中宏LenCstn需要加1
+char  mod[LenMod][LenUnit] = { "mod" };
 double cstnDouble[LenCstn] = {M_PI,M_E };//如果增加1个常数需要在此添加一个定义
 
 // int  findNumLen(const char*);
@@ -35,6 +36,7 @@ return 0;
 }
 
 char findChar(const char* str,enum flager *flag) {
+	*flag = Not;
 	for (int i = 0; i < NUMofMax; i++) {
 		if (i < NUMofFUN && !strncmp(str, func[i], strlen(func[i]))) {
 			*flag = Fun; return 'A' + i;//函数
@@ -47,6 +49,9 @@ char findChar(const char* str,enum flager *flag) {
 		}
 		else if (i<NUMofCstn&&!strncmp(str, cstn[i], strlen(cstn[i]))) {
 			*flag = Cstn; return 'a' + i;//常数
+		}
+		else if (i < NUMofMod && !strncmp(str, mod[i], strlen(mod[i]))) {
+			*flag = Mod; return i;
 		}
 	}
 	return 0;
@@ -94,13 +99,14 @@ struct data myAtof(const char* str, int* len) {
 		(*len)++;
 		over = 1;
 	}
-	char x = 0;
-	if (!over&&(x=findChar(str,&aData.flag)) ){//若为字符类型，将当前元素设为字符
+char x = 0;
+	if (!over&&((x=findChar(str,&aData.flag))||aData.flag!=Not) ){
 		switch(aData.flag){
 		case Bra: aData.ch = x; (*len) += 1;break;
 		case Ope: aData.ch = x; (*len) += 1; break;
 		case Cstn:x = x - 'a'; aData.num = cstnDouble[x]; aData.flag = Num; (*len) += strlen(cstn[x]); break;
 		case Fun: aData.ch = x; aData.flag = Fun;  (*len) += strlen(func[x - 'A']); break;
+		case Mod:aData.flag = Mod; (*len) += strlen(mod[x]); break;
 		default: printf("Find a wrong char '%c' !\n", x); aData.flag = Not; break;
 		}
 		over=1;
@@ -141,9 +147,12 @@ struct data* getInArray() {//主要读取数据函数（为以上函数的集中
 		int number = 0;//存储当前元素所占的字符数
 		now = myAtof(inputStr + i, &number);//顺序读入字符串元素
 		if (!number) {
-			printf("Your input '%c' is invalid !\n", *(inputStr + i));  i++;
-			printf("Press 'y' to continue or the process will break.\n"); getchar();
-			if (getchar() != 'y') {
+			printf("Your input '%c' is invalid !\n", *(inputStr + i)); 
+			i++;
+			printf("Press 'y' to skip the '%c' and continue or the process will break.\n", *(inputStr + i));
+			char temInput=getchar();
+			while (temInput == ' ' || temInput == '\n')temInput=getchar();
+			if (temInput != 'y') {
 				Array = NULL;
 				break;
 			}
@@ -151,6 +160,11 @@ struct data* getInArray() {//主要读取数据函数（为以上函数的集中
 		}
 		else if (now.flag != Num && now.flag != Not) {
 			//printf("Get a char %c %d\n", now.ch, number);
+			if (now.flag == Mod) {
+				printMod();
+				Array = NULL;
+				break;
+			}
 			if (now.flag == Eql) {
 				Array[ArrayNum] = makeNode(0, ')');
 				ArrayNum++; 
@@ -168,8 +182,6 @@ struct data* getInArray() {//主要读取数据函数（为以上函数的集中
 		}
 		else Array = NULL;
 	}
-	if (Array != NULL) {
 	
-	}
 	return Array;
 }

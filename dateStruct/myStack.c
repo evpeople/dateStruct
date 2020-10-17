@@ -6,6 +6,11 @@ int isEmpty(STACK A)//判断栈是否为空
     {
         return 1;
     }
+    else
+    {
+        return 0;
+    }
+    
 }
 void makeEmpty(STACK A)//将栈清空
 {
