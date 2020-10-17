@@ -1,4 +1,5 @@
 #include "myStack.h"
+#include"getIn.h"
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -18,5 +19,8 @@ union datas
 //		}
 //    
 //    printStack(sbwhx); 
-//
+//    while (1) {
+//        printf("\n<<<<<====-------------------------====>>>>>\n");
+//        TestInput();
+//    }
 //}

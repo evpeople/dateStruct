@@ -10,11 +10,8 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-<<<<<<< HEAD
     printf("输出调整请键入命令mod=\n");
-=======
-    //printf("wsdsaad");
->>>>>>> d33ca6bb84fec555c3521f68c91b7a6033f71170
+
     while (1)
     {
         printf("请输入\n");

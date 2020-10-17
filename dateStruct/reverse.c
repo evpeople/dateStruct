@@ -2,7 +2,7 @@
 #include "getIn.h"
 #include "myStack.h"
 #include <math.h>
-int isLower(nodeOfStack A, nodeOfStack B); //æœ‰é—®é¢˜ï¼Œæ²¡å†™è¿ç®—å…ˆåé¡ºåºçš„åˆ¤æ–­ï¼Œ
+int isLower(nodeOfStack A, nodeOfStack B); //ÓĞÎÊÌâ£¬Ã»Ğ´ÔËËãÏÈºóË³ĞòµÄÅĞ¶Ï£¬
 double mathOfOpr(double, double, char);
 double mathOfFun(double, char);
 void specialPush(STACK, nodeOfStack);
@@ -15,23 +15,22 @@ int numOfRecursion = 0;
 int flagOfRecursion = 0;
 double mathOfOpr(double a, double b, char c)
 {
-    double result; //ä¿å­˜å•ç›®è¿ç®—ç»“æœ
+    double result; //±£´æµ¥Ä¿ÔËËã½á¹û
     switch (c) {
     case '+': result = a + b; break;
     case '-': result = a - b; break;
     case '*':result = a * b; break;
     case '/':result = a / b; break;
     case '^':result = pow(a, b); break;
-    case '%':result = a - b * (a / b); break;
-    defualt:result = a;
+    case '%':result = a - b * ((int)a /(int) b); break;
+    defualt: result = a;
     }
     return result;
 }
 
 double mathOfFun(double a, char b)
 {
-    double result; //ä¿å­˜å‡½æ•°è¿ç®—ç»“æœ
-    int tempjc;    //è¿ç®—é˜¶ä¹˜ä½¿ç”¨çš„intç±»å‹æ•°
+    double result; //±£´æº¯ÊıÔËËã½á¹û
     if (b == 'A')
     {
         result = sin(a);
@@ -107,7 +106,7 @@ int isLower(nodeOfStack A, nodeOfStack B)
         
         return flag;
 }
-// int isLower(nodeOfStack A, nodeOfStack B) //A æ˜¯æ ˆé¡¶å…ƒç´  Bæ˜¯é©¬ä¸Šå…¥æ ˆçš„å…ƒç´  Aæ¯”Bå°ï¼Œè¿”å›1
+// int isLower(nodeOfStack A, nodeOfStack B) //A ÊÇÕ»¶¥ÔªËØ BÊÇÂíÉÏÈëÕ»µÄÔªËØ A±ÈBĞ¡£¬·µ»Ø1
 // {
 //     if (A.flag == Fun && B.flag == Ope)
 //     {
@@ -184,7 +183,7 @@ void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
         nodeOfStack temp = topAndPop(oprStack);
         while (!isLower(temp, A))
         {
-            //é€šè¿‡å‡½æ•°å®ç°
+            //Í¨¹ıº¯ÊıÊµÏÖ
             specialPush(opdStack, temp);
             temp = topAndPop(oprStack);
         }
@@ -209,8 +208,8 @@ double reverse(nodeOfStack first[])
         i = 1;
     }
 
-    STACK oprStack = createStack(); //å†…ï¼Œæš‚å­˜æ“ä½œç¬¦(operatorStackæ“ä½œç¬¦æ ˆ)
-    STACK opdStack = createStack(); //å†…ï¼Œæš‚å­˜æ“ä½œæ•°(operandStackæ“ä½œæ•°æ ˆ)
+    STACK oprStack = createStack(); //ÄÚ£¬Ôİ´æ²Ù×÷·û(operatorStack²Ù×÷·ûÕ»)
+    STACK opdStack = createStack(); //ÄÚ£¬Ôİ´æ²Ù×÷Êı(operandStack²Ù×÷ÊıÕ»)
     if (numOfRecursion != 0)
     {
         push(oprStack, makeNode(0, '('));
@@ -230,10 +229,10 @@ double reverse(nodeOfStack first[])
             dealWithBra(A, oprStack, opdStack, &i);
             break;
         case Ope:
-        case Fun: //Aæ˜¯æ–°å»ºçš„èŠ‚ç‚¹
+        case Fun: //AÊÇĞÂ½¨µÄ½Úµã
             dealWithFun(A, oprStack, opdStack);
             break;
-        default: //è¯»å…¥ç­‰å·
+        default: //¶ÁÈëµÈºÅ
             dealWithDefault(opdStack, oprStack);
             return topAndPop(opdStack).num;
             break;
