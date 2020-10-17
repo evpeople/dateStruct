@@ -1,17 +1,17 @@
 #include"myStack.h"
 #include"getIn.h"
 
-char opr[LenOpr] = { '+','-','*','/','^' };
-char bra[LenBra] = { '(',')','[',']','{','}' };
-char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!" };
-char cstn[LenCstn][LenUnit] = { "pi","e" };
+char opr[LenOpr] = { '+','-','*','/','^' };//操作符
+char bra[LenBra] = { '(',')','[',']','{','}' };//括号//保证前括号下标%2为0，后括号为1
+char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log","!" };//函数//可自行扩展，定义在mathOfFun即可，并且getin.hz中宏NumOfFunc2需要加1
+char cstn[LenCstn][LenUnit] = { "pi","e" };//常数//增加需要在cstnDouble[LenCstn]中定义，并且getin.hz中宏LenCstn需要加1
 
-double cstnDouble[LenCstn] = {M_PI,M_E };
+double cstnDouble[LenCstn] = {M_PI,M_E };//如果增加1个常数需要在此添加一个定义
 
-int  findNumLen(const char*);
-char findChar(const char*,enum flager *flag);
-struct data myAtof(const char*,int *len);
-int TestInput();
+// int  findNumLen(const char*);
+// char findChar(const char*,enum flager *flag);
+// struct data myAtof(const char*,int *len);
+// int TestInput();
 //
 //int main() {
 //	TestInput();
