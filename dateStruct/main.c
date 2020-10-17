@@ -1,19 +1,21 @@
 #include"myStack.h"
 #include"getIn.h"
 #include"reverse.h"
-
+nodeOfStack *changedString;
+int twhx;
 int main()
 {
 
     //printf("wsdsaad");
     while (1)
     {
-        nodeOfStack *A = getInArray();
+        changedString = getInArray();
         //printf("%c", A[1].ch);
         //system("pause");
         //printf("wsdsaad");
-        double answer = reverse(A);
+        double answer = reverse(changedString);
         printf("%lf\n", answer);
+        twhx = 0;
         printf("whxNB ljrNB wzNB");
     }
     

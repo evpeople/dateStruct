@@ -28,4 +28,5 @@ extern char bra[LenBra];
 extern char func[LenFunc][LenFunc2];
 extern char cstn[LenCstn][LenUnit];
 extern double cstnDouble[LenCstn];
+extern nodeOfStack *changedString;
 #endif // !GETIN

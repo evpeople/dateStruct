@@ -10,7 +10,9 @@ double reverse(nodeOfStack[]);
 void printNode(nodeOfStack temp);
 void dealWithBra(nodeOfStack, STACK, STACK, int *);
 void dealWithFun(nodeOfStack, STACK, STACK);
-
+int tWhx = 0;
+int numOfRecursion = 0;
+int flagOfRecursion = 0;
 double mathOfOpr(double a, double b, char c)
 {
     double result; //保存单目运算结果
@@ -79,7 +81,7 @@ void specialPush(STACK opdStack, nodeOfStack temp)
     {
         double a = topAndPop(opdStack).num;
         double b = topAndPop(opdStack).num;
-        nodeOfStack ans = makeNode(mathOfOpr(a, b, temp.ch), '@');
+        nodeOfStack ans = makeNode(mathOfOpr(b, a, temp.ch), '@');
         push(opdStack, ans);
     }
     else
@@ -109,7 +111,9 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
     if (A.ch == '(')
     {
         (*i)++;
-        push(oprStack, A);
+        numOfRecursion++;
+        push(opdStack, makeNode(reverse(changedString),'@'));
+        (*i)--;
     }
     else
     {
@@ -163,10 +167,19 @@ double reverse(nodeOfStack first[])
 {
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
     int i = 0;
-    int tWhx = 0;
+    if (numOfRecursion!=0)
+    {
+        i = 1;
+    }
+    
     STACK oprStack = createStack(); //内，暂存操作符(operatorStack操作符栈)
     STACK opdStack = createStack(); //内，暂存操作数(operandStack操作数栈)
-    push(oprStack, makeNode(0, '+'));
+    if (numOfRecursion!=0)
+    {
+        push(oprStack, makeNode(0, '('));
+    }
+    
+    
     push(opdStack, makeNode(0, '@'));
     do
     {
