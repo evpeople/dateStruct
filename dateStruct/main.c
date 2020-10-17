@@ -1,7 +1,7 @@
 #include"myStack.h"
 #include"getIn.h"
 #include"reverse.h"
-
+#include "print.h"
 int main()
 {
 
@@ -12,15 +12,21 @@ int main()
         //printf("%c", A[1].ch);
         //system("pause");
         //printf("wsdsaad");
-        double answer = reverse(A);
-        printf("%lf\n", answer);
-        printf("whxNB ljrNB wzNB");
+        if (A == NULL) { 
+            printf("«Î ‰»Î£∫\n"); 
+            printf("<<<<<====-------------------------====>>>>>");
+            continue; 
+        }
+        double theAnswer = reverse(A);
+        printAns(theAnswer);
+        printf("<<<<<====-------------------------====>>>>>");
     }
     
     nodeOfStack *A = getInArray();
-    double answer = reverse(A);
-    printf("%lf\n", answer);
-    printf("whxNB ljrNB wzNB");
+    if (A == NULL)printf("«Î ‰»Î£∫\n");
+    double theAnswer = reverse(A);
+    printAns(theAnswer);
+    printf("<<<<<====-------------------------====>>>>>");
     getchar();
     getchar();
     getchar();

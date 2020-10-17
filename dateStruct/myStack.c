@@ -6,6 +6,7 @@ int isEmpty(STACK A)
     {
         return 1;
     }
+    return 0;
 }
 void makeEmpty(STACK A)
 {

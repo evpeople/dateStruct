@@ -6,12 +6,12 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define NUMofFUN 6
+#define NUMofFUN 5
 #define NUMofCstn 2
 #define NUMofOpe 5
 #define NUMofBra 6
 #define NUMofMax 26
-#define NUMofFUN 6
+#define NUMofMod 1
 
 #define MaxInput 2000
 
@@ -20,12 +20,13 @@
 #define LenOpr 5
 #define LenBra 6
 #define LenFunc 26
-#define LenFunc2 6
 #define LenUnit 6
 #define LenCstn 26
+#define LenMod 5
+extern char mod[LenMod][LenUnit];
 extern char opr[LenOpr];
 extern char bra[LenBra];
-extern char func[LenFunc][LenFunc2];
+extern char func[LenFunc][LenUnit];
 extern char cstn[LenCstn][LenUnit];
 extern double cstnDouble[LenCstn];
 #endif // !GETIN

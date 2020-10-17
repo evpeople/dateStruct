@@ -15,6 +15,7 @@ enum flager
 	Bra,
 	Cstn,
 	Eql,
+	Mod,
 	Not
 };
 struct data
