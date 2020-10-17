@@ -33,5 +33,6 @@ extern int findNumLen(const char *);//配合atof函数使用，前者使用的�
 extern char findChar(const char*,enum flager *);//根据读入字符返回int（枚举）类型，用以分辨操作符、括号、常数或函数并返回相应字符
 extern struct data myAtof(const char *, int *);//根据字符串读入元素（操作符、操作数、括号或函数）
 extern int TestInput();//用于测试输入函数是否正确（已停用）
+extern nodeOfStack *changedString;
 #endif // !GETIN
 
