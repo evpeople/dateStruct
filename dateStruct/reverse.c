@@ -108,7 +108,11 @@ int level(char n){
 int isLower(nodeOfStack A, nodeOfStack B)
 {
     int flag = 0;//1 xian B, 0 xian A
-    if  (A.flag == Ope && B.flag == Fun)
+    if (A.ch==B.ch)
+    {
+        flag = 1;
+    }
+    else if  (A.flag == Ope && B.flag == Fun)
         {
             flag= 1;
         }

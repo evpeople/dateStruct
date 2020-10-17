@@ -10,7 +10,6 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-
     //printf("wsdsaad");
     while (1)
     {
