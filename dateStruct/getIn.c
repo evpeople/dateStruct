@@ -121,7 +121,7 @@ struct data myAtof(const char* str, int* len) {
 
 struct data* getInArray() {//主要读取数据函数（为以上函数的集中整合）
 	struct data* Array = (struct data*)malloc(LENOFSTACK);//申请空间创建一个读取数据的数组
-	Array[0] = makeNode(0, '(');//前括号作为首结点，便于后期递归
+	Array[0] = makeNode(0, '(');//前括号作为首结点，便于后期递归*
 	int ArrayNum = 1;//数组Array长度
 	char inputStr[MaxInput];//输入的字符串
 	int j = 0;//读取用变量
