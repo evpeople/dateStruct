@@ -2,39 +2,30 @@
 #include "getIn.h"
 #include "myStack.h"
 #include <math.h>
-int isLower(nodeOfStack A, nodeOfStack B); //有问题，没写运算先后顺序的判断，
-double mathOfOpr(double, double, char);
-double mathOfFun(double, char);
-void specialPush(STACK, nodeOfStack);
-double reverse(nodeOfStack[]);
+int isLower(nodeOfStack A, nodeOfStack B); //判断运算符优先级
+double mathOfOpr(double, double, char);//实现二元运算符运算
+double mathOfFun(double, char);//实现函数运算
+void specialPush(STACK, nodeOfStack);//判断操作符为一元或二元（后者为存储操作符的栈）
+double reverse(nodeOfStack[]);//主要计算函数
 //void printNode(nodeOfStack temp);
-void dealWithBra(nodeOfStack, STACK, STACK, int *);
-void dealWithFun(nodeOfStack, STACK, STACK);
-int indexOfString = 0;
-int numOfRecursion = 0;
-int flagOfRecursion = 0;
+void dealWithBra(nodeOfStack, STACK, STACK, int *);//处理括号（前括号入栈，后括号弹出数据）
+void dealWithFun(nodeOfStack, STACK, STACK);//处理所有运算符（遇到二元弹出给mathOfFun处理）
+int indexOfString = 0;//标记reverse数组下标
+int numOfRecursion = 0;//递归次数
+int flagOfRecursion = 0;//递归状态标记
+static int level[256];
+
 double mathOfOpr(double a, double b, char c)
 {
     double result; //保存单目运算结果
-    if (c == '+')
-    {
-        result = a + b;
-    }
-    else if (c == '-')
-    {
-        result = a - b;
-    }
-    else if (c == '*')
-    {
-        result = a * b;
-    }
-    else if (c == '/')
-    {
-        result = a / b;
-    }
-    else if (c == '^')
-    {
-        result = pow(a, b);
+    switch (c) {
+    case '+': result = a + b; break;
+    case '-': result = a - b; break;
+    case '*':result = a * b; break;
+    case '/':result = a / b; break;
+    case '^':result = pow(a, b); break;
+    case '%':result = a - b * ((int)a /(int) b); break;
+    defualt: result = a;
     }
     return result;
 }
@@ -42,7 +33,6 @@ double mathOfOpr(double a, double b, char c)
 double mathOfFun(double a, char b)
 {
     double result; //保存函数运算结果
-    int tempjc;    //运算阶乘使用的int类型数
     if (b == 'A')
     {
         result = sin(a);
@@ -63,16 +53,7 @@ double mathOfFun(double a, char b)
     {
         result = log10(a);
     }
-    else if (b == 'F')
-    {
-        tempjc = (int)a;
-        result = 1;
-        while (tempjc > 1)
-        {
-            result = result * tempjc;
-            tempjc--;
-        }
-    }
+    else result = a;
     return result;
 }
 void specialPush(STACK opdStack, nodeOfStack temp)
@@ -92,23 +73,23 @@ void specialPush(STACK opdStack, nodeOfStack temp)
     }
 }
 
-int level(char n){
-    int level[256];
-    
+int startlevel(){  
     for (int i = 0; i < 256;i++){
         switch(i){
             case '+' :case '-':
-                level[i] = 2;
-            case '*':case'/':
-                level[i] = 3;
+                level[i] = 2; break;
+            case '*':case'/':case '%':
+                level[i] = 3; break;
+            case '^':
+                level[i] = 4; break;
         }
     }
-    return level[n];
+    return 0;
 }
-int isLower(nodeOfStack A, nodeOfStack B)
+int isLower(nodeOfStack A, nodeOfStack B)//A栈内B栈外    B优先时 返回1pushA
 {
-    int flag = 0;//1 xian B, 0 xian A
-    if (A.ch==B.ch)
+    int flag = 0;                                          //默认返回1
+  if (A.ch==B.ch)
     {
         flag = 1;
     }
@@ -118,13 +99,13 @@ int isLower(nodeOfStack A, nodeOfStack B)
         }
         else if (A.flag == Ope && B.flag == Ope)
         {
-            if(level(B.flag)>level(A.flag))
+            if(level[B.ch]>level[A.ch])
                 flag = 1;
-        }else if (A.flag==Bra)
+        }  if (A.flag == Bra&&A.ch=='(')
         {
             flag = 1;
         }
-        
+ 
         return flag;
 }
 // int isLower(nodeOfStack A, nodeOfStack B) //A 是栈顶元素 B是马上入栈的元素 A比B小，返回1
@@ -162,16 +143,16 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 {
     if (A.ch == '(')
     {
-        (*i)++;
+
         numOfRecursion++;
         push(opdStack, makeNode(reverse(changedString), '@'));
-        (*i)--;
+        
     }
     else
     {
         (*i)--;
         nodeOfStack temp = top(oprStack);
-        while (temp.ch != '(') //TODO:
+        while (temp.ch != '(') 
         {
             temp = top(oprStack);
             if (temp.flag != Bra)
@@ -195,7 +176,7 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 }
 void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
 {
-    if (isLower(top(oprStack), A) || top(oprStack).flag == Bra || isEmpty(oprStack))
+    if ( isEmpty(oprStack)|| top(oprStack).flag == Bra || isLower(top(oprStack), A))
     {
         push(oprStack, A);
     }
@@ -223,7 +204,8 @@ void dealWithDefault(STACK opdStack, STACK oprStack)
 double reverse(nodeOfStack first[])
 {
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
-    int i = 0;
+    startlevel();
+    int i = 0;//用于括号配平的计数器
     if (numOfRecursion != 0)
     {
         i = 1;

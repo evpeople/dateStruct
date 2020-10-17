@@ -1,6 +1,6 @@
-#include"myStack.h"
-#include"getIn.h"
-#include"reverse.h"
+#include "myStack.h"
+#include "getIn.h"
+#include "reverse.h"
 
 #include "print.h"
 
@@ -10,28 +10,25 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-    //printf("wsdsaad");
+    printf("Èöµ©\n");
+
     while (1)
     {
+        printf("Èûn");
         changedString = getInArray();
-        //printf("%c", A[1].ch);
-        //system("pause");
-        //printf("wsdsaad");
-        double answer = reverse(changedString);
-        printf("%lf\n", answer);
+        if (changedString == NULL)
+        {
+            printf("è¯·è¾“å…¥\n");
+            continue;
+        }
+        double theAnswer = reverse(changedString);
+        printAns(theAnswer);
         indexOfString = 0;
         numOfRecursion = 0;
         flagOfRecursion = 0;
-        printf("whxNB ljrNB wzNB");
+        printf("\n<<<<<====-------------------------====>>>>>\n");
+        printf("whxNB ljrNB wzNB\n");
     }
-    
-    nodeOfStack *A = getInArray();
-    if (A == NULL)printf("ï¿½ï¿½ï¿½ï¿½ï¿½ë£º\n");
-    double theAnswer = reverse(A);
-    printAns(theAnswer);
-    printf("<<<<<====-------------------------====>>>>>");
-    getchar();
-    getchar();
-    getchar();
     return 0;
 }
+//(-2)*3+(-4)*5+(-1)*7*9=

@@ -1,59 +1,83 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "print.h"
 #include <string.h>
-#include<stdio.h>
+#include <stdio.h>
 #include <ctype.h>
-static  char printLen='6';
+static char printLen = '6';
 static int modFlag = 0;
 
-char end[MaxOfFlag][MaxOfPrint] = { "lf\n" ,"e\n" };
+char end[MaxOfFlag][MaxOfPrint] = {"lf\n", "e\n"};
 
 void SetPrintMod();
 void SetPrintLen();
 void printIntroduction();
-void printAns(double answer) {
-	 char toBePrint [MaxOfPrint]= "The Answer Is %.";
-	 char pLen[MaxOfPrint] = { printLen };
-	strncat(toBePrint, pLen, MaxOfPrint);
-	strncat(toBePrint, end[modFlag], MaxOfPrint);
-	printf(toBePrint, answer);
+void printAns(double answer)
+{
+    char toBePrint[MaxOfPrint] = "The Answer Is %.";
+    char pLen[MaxOfPrint] = {printLen};
+    strncat(toBePrint, pLen, MaxOfPrint);
+    strncat(toBePrint, end[modFlag], MaxOfPrint);
+    printf(toBePrint, answer);
 }
-void printIntroduction() {
-	printf("ÊäÈë£º\n l :µ÷ÕûĞ¡ÊıÎ»Êı\n m :µ÷ÕûÊä³öÄ£Ê½\n");
-	return;
+void printIntroduction()
+{
+    printf("è¾“å…¥ï¼š\n l :è°ƒæ•´å°æ•°ä½æ•°\n m :è°ƒæ•´è¾“å‡ºæ¨¡å¼\n");
+    return;
 };
-void SetPrintLen() {
-	printf("½öÖ§³ÖÊäÈë0µ½9µÄÊı×Ö\n");
-	char  len = getchar();
-	while (len == ' ' || len == '\n')len = getchar();
-	if (!isdigit(len)) {
-		printf("Wrong Len !!\n");
-		return;
-	}
-	else printLen = len;
+void SetPrintLen()
+{
+    printf("ä»…æ”¯æŒè¾“å…¥0åˆ°9çš„æ•°å­—\n");
+    char len = getchar();
+    while (len == ' ' || len == '\n')
+        len = getchar();
+    if (!isdigit(len))
+    {
+        printf("Wrong Len !!\n");
+        return;
+    }
+    else
+        printLen = len;
 }
 
-void printMod() {
-	printIntroduction();
-	char  tmp = getchar();
-	while (tmp == ' ' || tmp == '\n')tmp = getchar();
-	switch (tmp) {
-	case 'l':SetPrintLen(); break;
-	case 'm':SetPrintMod(); break;
-	default:printf("Wrong Input !!\n"); return;
-	}
-	printf("ÔÙ´ÎĞŞ¸ÄÇëÔÙ´Î¼üÈë mod= Ö¸Áî\n");
-	return;
+void printMod()
+{
+    printIntroduction();
+    char tmp = getchar();
+    while (tmp == ' ' || tmp == '\n')
+        tmp = getchar();
+    switch (tmp)
+    {
+    case 'l':
+        SetPrintLen();
+        break;
+    case 'm':
+        SetPrintMod();
+        break;
+    default:
+        printf("Wrong Input !!\n");
+        return;
+    }
+    printf("å†æ¬¡ä¿®æ”¹è¯·å†æ¬¡é”®å…¥ mod= æŒ‡ä»¤\n");
+    return;
 }
 
-void SetPrintMod() {
-	printf("e :Êä³ö¸ÄÎª¿ÆÑ§¼ÆÊı\n f :Êä³ö¸ÄÎªĞ¡ÊıÄ£Ê½\n");
-	char mod = getchar();
-	while (mod == ' ' || mod == '\n')mod = getchar();
-	switch (mod) {
-	case 'e':modFlag = 1; break;
-	case'f':modFlag = 0; break;
-	default: printf("Wrong Mod !!\n"); break;
-	}
-	return;
+void SetPrintMod()
+{
+    printf("e :è¾“å‡ºæ”¹ä¸ºç§‘å­¦è®¡æ•°\n f :è¾“å‡ºæ”¹ä¸ºå°æ•°æ¨¡å¼\n");
+    char mod = getchar();
+    while (mod == ' ' || mod == '\n')
+        mod = getchar();
+    switch (mod)
+    {
+    case 'e':
+        modFlag = 1;
+        break;
+    case 'f':
+        modFlag = 0;
+        break;
+    default:
+        printf("Wrong Mod !!\n");
+        break;
+    }
+    return;
 };

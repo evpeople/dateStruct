@@ -7,29 +7,29 @@
 
 #define LENOFSTACK sizeof(struct data) * 2000
 
-enum flager//枚举类型（增加可读性*）
+enum flager //枚举类型（增加可读性*）
 {
-	Num = 0,
-	Fun,
-	Ope,
-	Bra,
-	Cstn,
-	Eql,
-	Mod,
-	Not
+    Num = 0,
+    Fun,
+    Ope,
+    Bra,
+    Cstn,
+    Eql,
+    Mod,
+    Not
 };
 struct data
 {
-	enum flager flag; //1--ch, 0--num,
-	char ch;//存放字符（若flag为1）
-	double num;//存放数字（若flag为0）
+    enum flager flag; //1--ch, 0--num,
+    char ch;          //存放字符（若flag为1）
+    double num;       //存放数字（若flag为0）
 };
 
 struct STACKER
 {
-	int i;		   //用于判断是字符、数字或空栈
-	int flagOfTop; //用于计算栈的个数
-	struct data dataInStack[LENOFSTACK];//存储用栈
+    int i;                               //用于判断是字符、数字或空栈
+    int flagOfTop;                       //用于计算栈的个数
+    struct data dataInStack[LENOFSTACK]; //存储用栈
 };
 
 typedef struct STACKER *STACK;
