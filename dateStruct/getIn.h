@@ -11,7 +11,11 @@
 #define NUMofOpe 5
 #define NUMofBra 6
 #define NUMofMax 26
+<<<<<<< HEAD
 #define NUMofMod 1
+=======
+#define NUMofFUN 6//如果添加1个函数此数需要加1
+>>>>>>> 1e05e5e8963511c69e42780f331ab94f4c415332
 
 #define MaxInput 2000
 
@@ -29,4 +33,11 @@ extern char bra[LenBra];
 extern char func[LenFunc][LenUnit];
 extern char cstn[LenCstn][LenUnit];
 extern double cstnDouble[LenCstn];
+
+extern int findNumLen(const char *);//配合atof函数使用，前者使用的字符数目为它的返回值（对科学计数法适用*）
+extern char findChar(const char*,enum flager *);//根据读入字符返回int（枚举）类型，用以分辨操作符、括号、常数或函数并返回相应字符
+extern struct data myAtof(const char *, int *);//根据字符串读入元素（操作符、操作数、括号或函数）
+extern int TestInput();//用于测试输入函数是否正确（已停用）
+extern nodeOfStack *changedString;
 #endif // !GETIN
+
