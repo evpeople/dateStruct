@@ -1,4 +1,4 @@
-#include "reverse.h"
+﻿#include "reverse.h"
 #include "getIn.h"
 #include "myStack.h"
 #include <math.h>
@@ -25,7 +25,7 @@ double mathOfOpr(double a, double b, char c)
     case '/':result = a / b; break;
     case '^':result = pow(a, b); break;
     case '%':result = a - b * ((int)a /(int) b); break;
-    defualt: result = a;
+    default: result = a;
     }
     return result;
 }

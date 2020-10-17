@@ -1,6 +1,9 @@
-#ifndef GETIN
+﻿#ifndef GETIN
 #define GETIN
-
+#include "myStack.h"
+#include<string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,8 +18,8 @@
 
 #define MaxInput 2000
 
-#define M_E 2.71828182845904523536  // e
-#define M_PI 3.14159265358979323846 // pi
+#define M_E        2.71828182845904523536   // e
+#define M_PI       3.14159265358979323846   // pi
 #define LenOpr 6
 #define LenBra 6
 #define LenFunc 26

@@ -10,14 +10,13 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-    printf("����\n");
+    printf("输出调整请键入命令mod=\n");
 
     while (1)
     {
-        printf("��n");
+        printf("请输入\n");
         changedString = getInArray();
-        if (changedString == NULL)
-        {
+        if (changedString == NULL) {
             printf("请输入\n");
             continue;
         }
