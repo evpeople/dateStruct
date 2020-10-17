@@ -2,22 +2,13 @@
 #include"getIn.h"
 #include"print.h"
 
-char opr[LenOpr] = { '+','-','*','/','^' };//操作符//自行扩展请按照优先级后大前小的方式排列，并定义在mathOfOpr即可，并且getIn.h中宏NumOf需要加1
+char opr[LenOpr] = { '+','-','*','/','^','%' };//操作符//自行扩展请按照优先级后大前小的方式排列，并定义在mathOfOpr即可，并且getIn.h中宏NumOf需要加1
 char bra[LenBra] = { '(',')','[',']','{','}' };//括号//保证前括号下标%2为0，后括号为1
 char func[LenFunc][LenUnit] = { "sin","ln","tan","cos" ,"log" };//函数//可自行扩展，定义在mathOfFun即可，并且getIn.h中宏NumOfFunc2需要加1
 char cstn[LenCstn][LenUnit] = { "pi","e" ,};//常数或模式//增加需要在cstnDouble[LenCstn]中定义，并且getin.hz中宏LenCstn需要加1
 char  mod[LenMod][LenUnit] = { "mod" };
 double cstnDouble[LenCstn] = {M_PI,M_E };//如果增加1个常数需要在此添加一个定义
 
-// int  findNumLen(const char*);
-// char findChar(const char*,enum flager *flag);
-// struct data myAtof(const char*,int *len);
-// int TestInput();
-//
-//int main() {
-//	TestInput();
-//	return 0;
-//}
 
 int TestInput() {
 struct data* array=getInArray();

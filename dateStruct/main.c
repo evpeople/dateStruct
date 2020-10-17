@@ -10,29 +10,26 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-
+<<<<<<< HEAD
+    printf("输出调整请键入命令mod=\n");
+=======
     //printf("wsdsaad");
+>>>>>>> d33ca6bb84fec555c3521f68c91b7a6033f71170
     while (1)
     {
+        printf("请输入\n");
         changedString = getInArray();
-        //printf("%c", A[1].ch);
-        //system("pause");
-        //printf("wsdsaad");
-        double answer = reverse(changedString);
-        printf("%lf\n", answer);
+        if (changedString == NULL) {
+            printf("请输入\n");
+            continue;
+        }
+        double theAnswer = reverse(changedString);
+        printAns(theAnswer);
         indexOfString = 0;
         numOfRecursion = 0;
         flagOfRecursion = 0;
-        printf("whxNB ljrNB wzNB");
+        printf("\n<<<<<====-------------------------====>>>>>\n");
+        printf("whxNB ljrNB wzNB\n");
     }
-    
-    nodeOfStack *A = getInArray();
-    if (A == NULL)printf("�����룺\n");
-    double theAnswer = reverse(A);
-    printAns(theAnswer);
-    printf("<<<<<====-------------------------====>>>>>");
-    getchar();
-    getchar();
-    getchar();
     return 0;
 }
