@@ -73,22 +73,23 @@ void specialPush(STACK opdStack, nodeOfStack temp)
     }
 }
 
-int startlevel(char n){
-  
+int startlevel(){  
     for (int i = 0; i < 256;i++){
         switch(i){
             case '+' :case '-':
-                level[i] = 2;
-            case '*':case'/':
-                level[i] = 3;
+                level[i] = 2; break;
+            case '*':case'/':case '%':
+                level[i] = 3; break;
+            case '^':
+                level[i] = 4; break;
         }
     }
-    return level[n];
+    return 0;
 }
-int isLower(nodeOfStack A, nodeOfStack B)
+int isLower(nodeOfStack A, nodeOfStack B)//A栈内B栈外    B优先时 返回1pushA
 {
-    int flag = 0;//1 xian B, 0 xian A
-    if (A.ch==B.ch)
+    int flag = 0;                                          //默认返回1
+  if (A.ch==B.ch)
     {
         flag = 1;
     }
@@ -98,13 +99,13 @@ int isLower(nodeOfStack A, nodeOfStack B)
         }
         else if (A.flag == Ope && B.flag == Ope)
         {
-            if(level(B.flag)>level(A.flag))
+            if(level[B.ch]>level[A.ch])
                 flag = 1;
-        }else if (A.flag==Bra)
+        }  if (A.flag == Bra&&A.ch=='(')
         {
             flag = 1;
         }
-        
+ 
         return flag;
 }
 // int isLower(nodeOfStack A, nodeOfStack B) //A 是栈顶元素 B是马上入栈的元素 A比B小，返回1
@@ -175,7 +176,7 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 }
 void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
 {
-    if (isLower(top(oprStack), A) || top(oprStack).flag == Bra || isEmpty(oprStack))
+    if ( isEmpty(oprStack)|| top(oprStack).flag == Bra || isLower(top(oprStack), A))
     {
         push(oprStack, A);
     }
