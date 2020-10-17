@@ -16,25 +16,14 @@ int flagOfRecursion = 0;
 double mathOfOpr(double a, double b, char c)
 {
     double result; //保存单目运算结果
-    if (c == '+')
-    {
-        result = a + b;
-    }
-    else if (c == '-')
-    {
-        result = a - b;
-    }
-    else if (c == '*')
-    {
-        result = a * b;
-    }
-    else if (c == '/')
-    {
-        result = a / b;
-    }
-    else if (c == '^')
-    {
-        result = pow(a, b);
+    switch (c) {
+    case '+': result = a + b; break;
+    case '-': result = a - b; break;
+    case '*':result = a * b; break;
+    case '/':result = a / b; break;
+    case '^':result = pow(a, b); break;
+    case '%':result = a - b * (a / b); break;
+    defualt:result = a;
     }
     return result;
 }
@@ -63,16 +52,7 @@ double mathOfFun(double a, char b)
     {
         result = log10(a);
     }
-    else if (b == 'F')
-    {
-        tempjc = (int)a;
-        result = 1;
-        while (tempjc > 1)
-        {
-            result = result * tempjc;
-            tempjc--;
-        }
-    }
+    else result = a;
     return result;
 }
 void specialPush(STACK opdStack, nodeOfStack temp)

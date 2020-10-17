@@ -8,7 +8,7 @@
 
 #define NUMofFUN 5
 #define NUMofCstn 2
-#define NUMofOpe 5
+#define NUMofOpe 6
 #define NUMofBra 6
 #define NUMofMax 26
 #define NUMofMod 1
@@ -17,7 +17,7 @@
 
 #define M_E        2.71828182845904523536   // e
 #define M_PI       3.14159265358979323846   // pi
-#define LenOpr 5
+#define LenOpr 6
 #define LenBra 6
 #define LenFunc 26
 #define LenUnit 6
