@@ -1,6 +1,6 @@
-#ifndef GETIN
+ï»¿#ifndef GETIN
 #define GETIN
-
+#include "myStack.h"
 #include<string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -30,10 +30,10 @@ extern char func[LenFunc][LenUnit];
 extern char cstn[LenCstn][LenUnit];
 extern double cstnDouble[LenCstn];
 
-extern int findNumLen(const char *);//ÅäºÏatofº¯ÊıÊ¹ÓÃ£¬Ç°ÕßÊ¹ÓÃµÄ×Ö·ûÊıÄ¿ÎªËüµÄ·µ»ØÖµ£¨¶Ô¿ÆÑ§¼ÆÊı·¨ÊÊÓÃ*£©
-extern char findChar(const char*,enum flager *);//¸ù¾İ¶ÁÈë×Ö·û·µ»Øint£¨Ã¶¾Ù£©ÀàĞÍ£¬ÓÃÒÔ·Ö±æ²Ù×÷·û¡¢À¨ºÅ¡¢³£Êı»òº¯Êı²¢·µ»ØÏàÓ¦×Ö·û
-extern struct data myAtof(const char *, int *);//¸ù¾İ×Ö·û´®¶ÁÈëÔªËØ£¨²Ù×÷·û¡¢²Ù×÷Êı¡¢À¨ºÅ»òº¯Êı£©
-extern int TestInput();//ÓÃÓÚ²âÊÔÊäÈëº¯ÊıÊÇ·ñÕıÈ·£¨ÒÑÍ£ÓÃ£©
+extern int findNumLen(const char *);//é…åˆatofå‡½æ•°ä½¿ç”¨ï¼Œå‰è€…ä½¿ç”¨çš„å­—ç¬¦æ•°ç›®ä¸ºå®ƒçš„è¿”å›å€¼ï¼ˆå¯¹ç§‘å­¦è®¡æ•°æ³•é€‚ç”¨*ï¼‰
+extern char findChar(const char*,enum flager *);//æ ¹æ®è¯»å…¥å­—ç¬¦è¿”å›intï¼ˆæšä¸¾ï¼‰ç±»å‹ï¼Œç”¨ä»¥åˆ†è¾¨æ“ä½œç¬¦ã€æ‹¬å·ã€å¸¸æ•°æˆ–å‡½æ•°å¹¶è¿”å›ç›¸åº”å­—ç¬¦
+extern struct data myAtof(const char *, int *);//æ ¹æ®å­—ç¬¦ä¸²è¯»å…¥å…ƒç´ ï¼ˆæ“ä½œç¬¦ã€æ“ä½œæ•°ã€æ‹¬å·æˆ–å‡½æ•°ï¼‰
+extern int TestInput();//ç”¨äºæµ‹è¯•è¾“å…¥å‡½æ•°æ˜¯å¦æ­£ç¡®ï¼ˆå·²åœç”¨ï¼‰
 extern nodeOfStack *changedString;
 #endif // !GETIN
 
