@@ -21,12 +21,12 @@ void printAns(double answer)
 }
 void printIntroduction()
 {
-    printf("输入：\n l :调整小数位数\n m :调整输出模式\n");
+    printf("To type in: \n l :Adjust the number of decimal places.\n m :Adjust output mode\n");
     return;
 };
 void SetPrintLen()
 {
-    printf("仅支持输入0到9的数字\n");
+    printf("Only supports entering numbers from 0 to 9\n");
     char len = getchar();
     while (len == ' ' || len == '\n')
         len = getchar();
@@ -57,13 +57,13 @@ void printMod()
         printf("Wrong Input !!\n");
         return;
     }
-    printf("再次修改请再次键入 mod= 指令\n");
+    printf("To modify again, please type mod= command again\n");
     return;
 }
 
 void SetPrintMod()
 {
-    printf("e :输出改为科学计数\n f :输出改为小数模式\n");
+    printf("e: change the output to scientific notation\nf: change the output to decimal mode\n");
     char mod = getchar();
     while (mod == ' ' || mod == '\n')
         mod = getchar();

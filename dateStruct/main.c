@@ -10,14 +10,14 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-    printf("输出调整请键入命令mod=\n");
+    printf("You can change the output of answer mod by type in 'mod='\n");
 
     while (1)
     {
-        printf("请输入\n");
+        printf("please type in\n");
         changedString = getInArray();
         if (changedString == NULL) {
-            printf("请输入\n");
+            printf("please type in\n");
             continue;
         }
         double theAnswer = reverse(changedString);
@@ -26,7 +26,7 @@ int main()
         numOfRecursion = 0;
         flagOfRecursion = 0;
         printf("\n<<<<<====-------------------------====>>>>>\n");
-        printf("whxNB ljrNB wzNB\n");
+        //printf("whxNB ljrNB wzNB\n");
     }
     return 0;
 }
