@@ -12,39 +12,9 @@
 
 10月9日 完成文档
 
-# 接口
-
-## myAtof（char *）
-
-
-return struct Data;
-
-
-## stack的ADT
-
-## 函数转换，sin cos ln log 的转换成ABCD
-## findFunc(char*)
-输入：字符串
-return char
-
-### sin 返回A，以此类推
-
-
-
-## findNum(char *)
-
-输入：字符串
-
-return double;
-
-## determineFunLevel(char )
-
-return int;
-
-## reversePolish(char * char**栈指针)//输入原始字符串
-
-返回结果栈指针
-
-## getAns（char**）
-
-return int;
+    实现的极端测试用例
+    sin(pi+lg(100)+1.1415926)=
+    sin(pi+lg(1e2)+1.1415926)+ln(e^2)=
+    sin(pi+lg(1e2)+1.1415926)=
+    (((sin(pi+lg(1e2)+1.1415926)))+ln(e^2))=
+    同时可以进行调整输出模式，选择以科学计数法输出还是小数输出，并且能控制小数输出的位数
