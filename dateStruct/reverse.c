@@ -1,4 +1,4 @@
-﻿#include "reverse.h"
+#include "reverse.h"
 #include "getIn.h"
 #include "myStack.h"
 #include <math.h>
@@ -39,6 +39,10 @@ double mathOfFun(double a, char b)
     }
     else if (b == 'B')
     {
+        if (a<=0) {
+            printf(">>ln(%.3lf) is invalid ! You may get a wrong answer !\n",a);
+            return -log(-a);
+        }
         result = log(a);
     }
     else if (b == 'C')
@@ -51,6 +55,10 @@ double mathOfFun(double a, char b)
     }
     else if (b == 'E')
     {
+        if (a <= 0) {
+            printf(">>lg(%.3lf) is invalid ! You may get a wrong answer !\n", a);
+            return -log10(-a);
+        }
         result = log10(a);
     }
     else result = a;

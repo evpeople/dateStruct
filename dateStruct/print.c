@@ -13,7 +13,7 @@ void SetPrintLen();
 void printIntroduction();
 void printAns(double answer)
 {
-    char toBePrint[MaxOfPrint] = "The Answer Is %.";
+    char toBePrint[MaxOfPrint] = "||>>The answer is \t%.";
     char pLen[MaxOfPrint] = {printLen};
     strncat(toBePrint, pLen, MaxOfPrint);
     strncat(toBePrint, end[modFlag], MaxOfPrint);
@@ -21,12 +21,12 @@ void printAns(double answer)
 }
 void printIntroduction()
 {
-    printf("To type in: \n l :Adjust the number of decimal places.\n m :Adjust output mode\n");
+    printf("||>>To type in: \n l :Adjust the number of decimal places.\n m :Adjust output mode\n");
     return;
 };
 void SetPrintLen()
 {
-    printf("Only supports entering numbers from 0 to 9\n");
+    printf(">>Only supports entering numbers from 0 to 9\n");
     char len = getchar();
     while (len == ' ' || len == '\n')
         len = getchar();
@@ -57,13 +57,13 @@ void printMod()
         printf("Wrong Input !!\n");
         return;
     }
-    printf("To modify again, please type mod= command again\n");
+    printf(">>Modify successfully !\n");
     return;
 }
 
 void SetPrintMod()
 {
-    printf("e: change the output to scientific notation\nf: change the output to decimal mode\n");
+    printf(" e : change the output to scientific notation\n f : change the output to decimal mode\n");
     char mod = getchar();
     while (mod == ' ' || mod == '\n')
         mod = getchar();

@@ -4,7 +4,7 @@
 
 char opr[LenOpr] = {'+', '-', '*', '/', '^', '%'};				  //操作符//自行扩展请按照优先级后大前小的方式排列，并定义在mathOfOpr即可，并且getIn.h中宏NumOf需要加1
 char bra[LenBra] = {'(', ')', '[', ']', '{', '}'};				  //括号//保证前括号下标%2为0，后括号为1
-char func[LenFunc][LenUnit] = {"sin", "ln", "tan", "cos", "log"}; //函数//可自行扩展，定义在mathOfFun即可，并且getIn.h中宏NumOfFunc2需要加1
+char func[LenFunc][LenUnit] = {"sin", "ln", "tan", "cos", "lg"}; //函数//可自行扩展，定义在mathOfFun即可，并且getIn.h中宏NumOfFunc2需要加1
 char cstn[LenCstn][LenUnit] = {
 	"pi",
 	"e",
@@ -16,13 +16,13 @@ int TestInput()
 {
 	struct data *array = getInArray();
 	if (array == NULL)
-		printf("wrong\n");
+		printf("\n||wrong: Array==NULL\n");
 	else
 		for (int i = 0;; i++)
 		{
 			if (array[i].flag == Not)
 			{
-				printf("wrong\n");
+				printf("\n||wrong: NodeFlag==Not\n");
 				break;
 			}
 			if (array[i].flag != Num)
@@ -33,7 +33,7 @@ int TestInput()
 				printf("%lf		", array[i].num);
 			if (array[i].flag == Eql)
 			{
-				printf("out by Eql.");
+				printf("\n||out by Eql successfully.\n");
 				break;
 			}
 		}
@@ -165,7 +165,7 @@ struct data myAtof(const char *str, int *len)
 			(*len) += strlen(mod[x]);
 			break;
 		default:
-			printf("Find a wrong char '%c' !\n", x);
+			printf("\n>>Wrong : Find a stupid char '%c' !\n", x);
 			aData.flag = Not;
 			break;
 		}
@@ -187,6 +187,7 @@ struct data myAtof(const char *str, int *len)
 
 struct data *getInArray()
 {															//主要读取数据函数（为以上函数的集中整合）
+	int numOfBra = 0;
 	struct data *Array = (struct data *)malloc(LENOFSTACK); //申请空间创建一个读取数据的数组
 	Array[0] = makeNode(0, '(');							//前括号作为首结点，便于后期递归
 	int ArrayNum = 1;										//数组Array长度
@@ -203,7 +204,7 @@ struct data *getInArray()
 
 		if (*(inputStr + i) == '\0')
 		{
-			printf("ERROR ! The Input is without a '=' .\n");
+			printf("\n>>ERROR ! The Input is without a '=' .\n");
 			Array = NULL;
 			break;
 		}
@@ -212,9 +213,9 @@ struct data *getInArray()
 		now = myAtof(inputStr + i, &number); //顺序读入字符串元素
 		if (!number)
 		{
-			printf("Your input '%c' is invalid !\n", *(inputStr + i));
+			printf("\n>>Your input '%c' is invalid !\n", *(inputStr + i));
 			i++;
-			printf("Press 'y' to skip the '%c' and continue or the process will break.\n", *(inputStr + i));
+			printf("\n>>Press 'y' to skip the '%c' and continue or the process will break.\n", *(inputStr + i));
 			char temInput = getchar();
 			while (temInput == ' ' || temInput == '\n')
 				temInput = getchar();
@@ -238,19 +239,10 @@ struct data *getInArray()
 				Array[ArrayNum] = makeNode(0, ')');
 				ArrayNum++;
 			}
-			/*if (now.flag == Ope&&now.ch=='-') {
-				if (!(Array[ArrayNum-1].flag==Bra&&Array[ArrayNum - 1].ch == '(')) {
-					Array[ArrayNum] = makeNode(0, '+');
-					ArrayNum++;
-				}
-				Array[ArrayNum] = makeNode(0, '(');
-				Array[++ArrayNum ] = makeNode(-1, '@');
-				Array[++ArrayNum] = makeNode(0, ')');
-				Array[++ArrayNum] = makeNode(0, '*');
-				i += number;
-				ArrayNum ++;
-				continue;
-			}*/
+			if (now.flag == Bra) {
+				if (now.ch == '(')numOfBra++;
+				if (now.ch == ')')numOfBra--;
+			}
 			Array[ArrayNum] = now;
 			ArrayNum++;
 			i += number;
@@ -271,5 +263,11 @@ struct data *getInArray()
 		}
 	} //读取元素循环结束
 
+	if (numOfBra != 0) {
+		printf("\n>>Wrong : The number of '(' does not match the number of ')' !!\n");
+		return NULL;
+	}
+
+	if(Array==NULL)  printf("||>>please retype in :\n");
 	return Array;
 }

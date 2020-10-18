@@ -10,14 +10,16 @@ int numOfRecursion;
 int flagOfRecursion;
 int main()
 {
-    printf("You can change the output of answer mod by type in 'mod='\n");
+    
     startlevel();
-    while (1)
+    int i = 1;
+    while (i)
     {
-        printf("please type in\n");
+        printf("\n||>>>> The %3d time caculation :\n",i);
+        printf("||>>You can change the output of answer mod by type in 'mod='\n");
+        printf("||>>please type in your instruction or expression:\n");
         changedString = getInArray();
         if (changedString == NULL) {
-            printf("please type in\n");
             continue;
         }
 
@@ -26,9 +28,7 @@ int main()
         indexOfString = 0;
         numOfRecursion = 0;
         flagOfRecursion = 0;
-        printf("\n<<<<<====-------------------------====>>>>>\n");
-        //printf("whxNB ljrNB wzNB\n");
+        i++;
     }
     return 0;
 }
-//(-2)*3+(-4)*5+(-1)*7*9=
