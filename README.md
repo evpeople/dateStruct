@@ -16,7 +16,9 @@
 
 ## myAtof（char *）
 
+
 return struct Data;
+
 
 ## stack的ADT
 
