@@ -11,7 +11,7 @@ int flagOfRecursion;
 int main()
 {
     printf("You can change the output of answer mod by type in 'mod='\n");
-
+    startlevel();
     while (1)
     {
         printf("please type in\n");
@@ -20,6 +20,7 @@ int main()
             printf("please type in\n");
             continue;
         }
+
         double theAnswer = reverse(changedString);
         printAns(theAnswer);
         indexOfString = 0;

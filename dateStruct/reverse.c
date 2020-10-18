@@ -13,7 +13,7 @@ void dealWithFun(nodeOfStack, STACK, STACK);//处理所有运算符（遇到二�
 int indexOfString = 0;//标记reverse数组下标
 int numOfRecursion = 0;//递归次数
 int flagOfRecursion = 0;//递归状态标记
-static int level[256];
+int level[256];
 
 double mathOfOpr(double a, double b, char c)
 {
@@ -91,7 +91,7 @@ int isLower(nodeOfStack A, nodeOfStack B)//A栈内B栈外    B优先时 返回1p
     int flag = 0;                                          //默认返回1
   if (A.ch==B.ch)
     {
-        flag = 1;
+        flag = 0;
     }
     else if  (A.flag == Ope && B.flag == Fun)
         {
@@ -188,7 +188,17 @@ void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
             //通过函数实现
             specialPush(opdStack, temp);
             temp = topAndPop(oprStack);
+            if (isEmpty(oprStack) && level[temp.ch] == level[A.ch])
+            {
+                specialPush(opdStack, temp);
+                break;
+            }
+
+            
         }
+        
+        push(oprStack, temp);
+    
         push(oprStack, A);
         //printNode(temp);
     }
@@ -204,7 +214,7 @@ void dealWithDefault(STACK opdStack, STACK oprStack)
 double reverse(nodeOfStack first[])
 {
     //int numOfNode = sizeof(first) / sizeof(nodeOfStack);
-    startlevel();
+    
     int i = 0;//用于括号配平的计数器
     if (numOfRecursion != 0)
     {
