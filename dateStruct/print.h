@@ -2,6 +2,6 @@
 #define PRINT_ANS
 #define MaxOfPrint 100
 #define MaxOfFlag 10
-void printMod();
+int printMod();
 void printAns(double);
 #endif // !PRINT_ANS

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include<float.h>
 static char printLen = '6';
 static int modFlag = 0;
 
@@ -13,6 +14,7 @@ void SetPrintLen();
 void printIntroduction();
 void printAns(double answer)
 {
+    if (answer <= DBL_EPSILON && answer >= -DBL_EPSILON)answer=0;
     char toBePrint[MaxOfPrint] = "||>>The answer is \t%.";
     char pLen[MaxOfPrint] = {printLen};
     strncat(toBePrint, pLen, MaxOfPrint);
@@ -39,7 +41,7 @@ void SetPrintLen()
         printLen = len;
 }
 
-void printMod()
+int  printMod()
 {
     printIntroduction();
     char tmp = getchar();
@@ -53,17 +55,23 @@ void printMod()
     case 'm':
         SetPrintMod();
         break;
+    case 'q':
+        printf("\nWelcome your next use !\n");
     default:
         printf("Wrong Input !!\n");
-        return;
+        return 0;
     }
     printf(">>Modify successfully !\n");
-    return;
+    return 1;
 }
 
 void SetPrintMod()
 {
-    printf(" e : change the output to scientific notation\n f : change the output to decimal mode\n");
+    printf("\
+ e : change the output to scientific notation\n \
+ f : change the output to decimal mode\n\
+ q : quit our\n\
+        ");
     char mod = getchar();
     while (mod == ' ' || mod == '\n')
         mod = getchar();

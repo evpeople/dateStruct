@@ -16,12 +16,14 @@ int main()
     while (i)
     {
         printf("\n||>>>> The %3d time caculation :\n",i);
-        printf("||>>You can change the output of answer mod by type in 'mod='\n");
+        printf("||>>You can quit or change the output of answer mod by type in 'mod='\n");
         printf("||>>please type in your instruction or expression:\n");
         changedString = getInArray();
+        fflush(stdin);
         if (changedString == NULL) {
             continue;
         }
+        else if (changedString[0].flag == Not)break;
 
         double theAnswer = reverse(changedString);
         printAns(theAnswer);

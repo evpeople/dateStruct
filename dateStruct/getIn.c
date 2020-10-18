@@ -202,8 +202,7 @@ struct data *getInArray()
 	for (int i = 0; i < MaxInput - 1;)
 	{ //读取元素循环开始
 
-		if (*(inputStr + i) == '\0')
-		{
+		if (*(inputStr + i) == '\0'){
 			printf("\n>>ERROR ! The Input is without a '=' .\n");
 			Array = NULL;
 			break;
@@ -211,11 +210,10 @@ struct data *getInArray()
 		struct data now;					 //创建一个新节点代表当前元素
 		int number = 0;						 //存储当前元素所占的字符数
 		now = myAtof(inputStr + i, &number); //顺序读入字符串元素
-		if (!number)
-		{
+		if (!number){
 			printf("\n>>Your input '%c' is invalid !\n", *(inputStr + i));
+			printf("\n>>Press 'y' to skip the '%c' and continue or the process will break if you type in another char.\n", *(inputStr + i));
 			i++;
-			printf("\n>>Press 'y' to skip the '%c' and continue or the process will break.\n", *(inputStr + i));
 			char temInput = getchar();
 			while (temInput == ' ' || temInput == '\n')
 				temInput = getchar();
@@ -230,23 +228,26 @@ struct data *getInArray()
 			//printf("Get a char %c %d\n", now.ch, number);
 			if (now.flag == Mod)
 			{
-				printMod();
-				Array = NULL;
+				if (!printMod()) {
+					Array[0].flag = Not;
+				}
+				else { Array = NULL; }
 				break;
 			}
-			if (now.flag == Eql)
+			else if (now.flag == Eql)
 			{
 				Array[ArrayNum] = makeNode(0, ')');
 				ArrayNum++;
 			}
-			if (now.flag == Bra) {
+			else if (now.flag == Bra) 
+			{
 				if (now.ch == '(')numOfBra++;
 				if (now.ch == ')')numOfBra--;
 			}
 			Array[ArrayNum] = now;
 			ArrayNum++;
 			i += number;
-			if (now.flag == Eql)
+			 if (now.flag == Eql)
 				break;
 		}
 		else if (now.flag == Num)
@@ -263,11 +264,11 @@ struct data *getInArray()
 		}
 	} //读取元素循环结束
 
-	if (numOfBra != 0) {
+	if (numOfBra != 0&&Array!=NULL) {
 		printf("\n>>Wrong : The number of '(' does not match the number of ')' !!\n");
 		return NULL;
 	}
 
-	if(Array==NULL)  printf("||>>please retype in :\n");
+	if(Array==NULL)  printf("||>>please retype in !!!\n");
 	return Array;
 }

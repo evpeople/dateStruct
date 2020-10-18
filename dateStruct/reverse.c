@@ -116,37 +116,7 @@ int isLower(nodeOfStack A, nodeOfStack B)//A栈内B栈外    B优先时 返回1p
  
         return flag;
 }
-// int isLower(nodeOfStack A, nodeOfStack B) //A 是栈顶元素 B是马上入栈的元素 A比B小，返回1
-// {
-//     if (A.flag == Fun && B.flag == Ope)
-//     {
-//         return 0;
-//     }
-//     else if (A.flag == Ope && B.flag == Fun)
-//     {
-//         return 1;
-//     }
-//     else if (A.flag == Ope && B.flag == Ope)
-//     {
-//         if (B.ch == '+' && B.ch == '-')
-//         {
-//             return 0;
-//         }
-//         else if (B.ch == '*' && B.ch == '/')
-//         {
-//             if (A.ch == '+' && A.ch == '-')
-//             {
-//                 return 1;
-//             }
-//             else
-//             {
-//                 return 0;
-//             }
-//         }
-//     }
 
-//     return A.ch <= B.ch;
-// }
 void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 {
     if (A.ch == '(')
