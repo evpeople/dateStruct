@@ -71,7 +71,7 @@ int  printMod()
 void SetPrintMod()
 {
     printf("\
- e : change the output to scientific notation\n \
+ e : change the output to scientific notation\n\
  f : change the output to decimal mode\n\
         ");
     char mod = getchar();
