@@ -58,14 +58,14 @@ double mathOfFun(double a, char b)
 }
 void specialPush(STACK opdStack, nodeOfStack temp)
 {
-    if (temp.flag == Ope)
+    if (temp.flag == Ope)//双目加减乘除和乘方
     {
         double a = topAndPop(opdStack).num;
         double b = topAndPop(opdStack).num;
         nodeOfStack ans = makeNode(mathOfOpr(b, a, temp.ch), '@');
         push(opdStack, ans);
     }
-    else
+    else//单目函数
     {
         double a = topAndPop(opdStack).num;
         nodeOfStack ans = makeNode(mathOfFun(a, temp.ch), '@');
@@ -144,15 +144,15 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
     if (A.ch == '(')
     {
 
-        numOfRecursion++;
-        push(opdStack, makeNode(reverse(changedString), '@'));
+        numOfRecursion++;//递归次数加一
+        push(opdStack, makeNode(reverse(changedString), '@'));//递归求出左右括号内的值并创建栈元素点并压入栈中
         
     }
-    else
+    else//右括号
     {
-        (*i)--;
-        nodeOfStack temp = top(oprStack);
-        while (temp.ch != '(') 
+        (*i)--;//配平括号指数减小
+        nodeOfStack temp = top(oprStack);//获取栈顶元素
+        while (temp.ch != '(') //查看获取元素是否为匹配的左括号
         {
             temp = top(oprStack);
             if (temp.flag != Bra)
@@ -162,7 +162,7 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
             }
             else
             {
-                pop(oprStack);
+                pop(oprStack);//弹出左括号
             }
             pop(oprStack);
             temp = top(oprStack);
@@ -176,20 +176,20 @@ void dealWithBra(nodeOfStack A, STACK oprStack, STACK opdStack, int *i)
 }
 void dealWithFun(nodeOfStack A, STACK oprStack, STACK opdStack)
 {
-    if ( isEmpty(oprStack)|| top(oprStack).flag == Bra || isLower(top(oprStack), A))
+    if ( isEmpty(oprStack)|| top(oprStack).flag == Bra || isLower(top(oprStack), A))//操作符栈空&操作符栈栈顶元素为bra&操作符栈栈顶元素优先级低）
     {
-        push(oprStack, A);
+        push(oprStack, A);//元素压入栈
     }
-    else
+    else//元素优先级高
     {
         nodeOfStack temp = topAndPop(oprStack);
-        while (!isLower(temp, A))
+        while (!isLower(temp, A))//优先级高进行循环，直到优先级变低
         {
             //通过函数实现
             specialPush(opdStack, temp);
             temp = topAndPop(oprStack);
         }
-        push(oprStack, A);
+        push(oprStack, A);//入栈
         //printNode(temp);
     }
 }
