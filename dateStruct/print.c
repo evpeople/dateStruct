@@ -1,9 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "print.h"
-#include <string.h>
-#include <stdio.h>
 #include <ctype.h>
-#include<float.h>
+#include <float.h>
+#include <stdio.h>
+#include <string.h>
 static char printLen = '6';
 static int modFlag = 0;
 
@@ -14,7 +14,8 @@ void SetPrintLen();
 void printIntroduction();
 void printAns(double answer)
 {
-    if (answer <= DBL_EPSILON && answer >= -DBL_EPSILON)answer=0;
+    if (answer <= DBL_EPSILON && answer >= -DBL_EPSILON)
+        answer = 0;
     char toBePrint[MaxOfPrint] = "||>>The answer is \t%.";
     char pLen[MaxOfPrint] = {printLen};
     strncat(toBePrint, pLen, MaxOfPrint);
@@ -44,7 +45,7 @@ void SetPrintLen()
         printLen = len;
 }
 
-int  printMod()
+int printMod()
 {
     printIntroduction();
     char tmp = getchar();

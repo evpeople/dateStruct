@@ -1,5 +1,5 @@
+#include "getIn.h"
 #include "myStack.h"
-#include"getIn.h"
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -17,8 +17,8 @@ union datas
 //    struct data wofule = makeNode(1+(double)i, '@');
 //    push(sbwhx, wofule);
 //		}
-//    
-//    printStack(sbwhx); 
+//
+//    printStack(sbwhx);
 //    while (1) {
 //        printf("\n<<<<<====-------------------------====>>>>>\n");
 //        TestInput();
