@@ -16,11 +16,16 @@
 
 ## myAtof（char *）
 
-return struct xxxx;
+
+return struct Data;
+
 
 ## stack的ADT
 
 ## 函数转换，sin cos ln log 的转换成ABCD
+## findFunc(char*)
+输入：字符串
+return char
 
 ### sin 返回A，以此类推
 
@@ -30,7 +35,7 @@ return struct xxxx;
 
 输入：字符串
 
-return int;
+return double;
 
 ## determineFunLevel(char )
 
