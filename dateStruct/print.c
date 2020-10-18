@@ -23,7 +23,10 @@ void printAns(double answer)
 }
 void printIntroduction()
 {
-    printf("||>>To type in: \n l :Adjust the number of decimal places.\n m :Adjust output mode\n");
+    printf("||>>To type in: \n\
+ l :Adjust the number of decimal places.\n\
+ m :Adjust output mode\n\
+ q : quit out\n");
     return;
 };
 void SetPrintLen()
@@ -70,7 +73,6 @@ void SetPrintMod()
     printf("\
  e : change the output to scientific notation\n \
  f : change the output to decimal mode\n\
- q : quit our\n\
         ");
     char mod = getchar();
     while (mod == ' ' || mod == '\n')
